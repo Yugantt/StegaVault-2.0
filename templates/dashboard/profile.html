@@ -1,0 +1,424 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Profile | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="profile-page">
+
+    <!-- ================= HEADER ================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-user"></i>
+            {{ _('My Profile') }}
+        </h1>
+        <p>
+            {{ _('Manage your StegaVault account information.') }}
+        </p>
+    </div>
+
+    <!-- ================= PROFILE CARD ================= -->
+    <section class="profile-card">
+        <div class="profile-avatar-wrapper">
+            <div class="profile-avatar">
+                {% if user and user.profile_image and user.profile_image != 'default.png' %}
+                    <img src="{{ url_for('static', filename='profile/' + user.profile_image) }}" alt="Profile" id="profilePreview">
+                {% else %}
+                    <div class="avatar-text" id="profilePreviewText">
+                        {{ user.username[0]|upper if user else 'U' }}
+                    </div>
+                    <img src="" alt="Profile" id="profilePreview" style="display:none;">
+                {% endif %}
+                <form method="POST" action="{{ url_for('profile.upload_picture') }}" enctype="multipart/form-data" class="avatar-upload-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <label for="profileImage" class="avatar-upload-btn">
+                        <i class="fas fa-camera"></i>
+                    </label>
+                    <input type="file" id="profileImage" name="profile_image" accept=".png,.jpg,.jpeg,.gif" style="display:none;" onchange="previewProfileImage(this)">
+                </form>
+            </div>
+            <div class="profile-info">
+                <h2>{{ user.full_name if user and user.full_name else user.username if user else 'User' }}</h2>
+                <p class="role">
+                    <i class="fas fa-shield-alt"></i>
+                    {{ user.role|capitalize if user else 'User' }}
+                </p>
+                <p class="email">
+                    <i class="fas fa-envelope"></i>
+                    {{ user.email if user else 'user@example.com' }}
+                </p>
+                <p class="joined">
+                    <i class="fas fa-calendar-plus"></i>
+                    Joined: {{ user.created_at.strftime('%d %b %Y') if user and user.created_at else 'N/A' }}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ACCOUNT INFORMATION ================= -->
+    <section class="glass-card">
+        <h2>
+            <i class="fas fa-address-card"></i>
+            {{ _('Account Information') }}
+        </h2>
+
+        <form method="POST" action="{{ url_for('profile.update_profile') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label for="fullName">{{ _('Full Name') }}</label>
+                <input id="fullName" type="text" name="full_name" value="{{ user.full_name if user and user.full_name else '' }}" placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="username">{{ _('Username') }}</label>
+                <input id="username" type="text" name="username" value="{{ user.username if user else '' }}" placeholder="Enter your username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">{{ _('Email Address') }}</label>
+                <input id="email" type="email" name="email" value="{{ user.email if user else '' }}" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">{{ _('Role') }}</label>
+                <input id="role" type="text" value="{{ user.role|capitalize if user else 'User' }}" readonly class="readonly">
+            </div>
+
+            <button type="submit" class="primary-btn">
+                <i class="fas fa-save"></i>
+                {{ _('Save Changes') }}
+            </button>
+        </form>
+    </section>
+
+    <!-- ================= CHANGE PASSWORD ================= -->
+    <section class="glass-card">
+        <h2>
+            <i class="fas fa-key"></i>
+            {{ _('Change Password') }}
+        </h2>
+        <p class="card-desc">{{ _('Update your account password anytime.') }}</p>
+
+        <form method="POST" action="{{ url_for('profile.change_password') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label for="currentPassword">{{ _('Current Password') }}</label>
+                <input id="currentPassword" type="password" name="current_password" placeholder="Enter current password" required>
+            </div>
+            <div class="form-group">
+                <label for="newPassword">{{ _('New Password') }}</label>
+                <input id="newPassword" type="password" name="new_password" placeholder="Enter new password" required minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">{{ _('Confirm New Password') }}</label>
+                <input id="confirmPassword" type="password" name="confirm_password" placeholder="Confirm new password" required>
+            </div>
+            <button type="submit" class="primary-btn">
+                <i class="fas fa-key"></i>
+                {{ _('Change Password') }}
+            </button>
+        </form>
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<style>
+/* ========== PROFILE AVATAR ========== */
+.profile-avatar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid var(--primary);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-avatar .avatar-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+}
+
+.avatar-upload-form {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 10;
+}
+
+.avatar-upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid var(--card);
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.avatar-upload-btn:hover {
+    transform: scale(1.1);
+    background: var(--secondary);
+}
+
+.profile-info h2 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.profile-info .role {
+    color: var(--primary);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.profile-info .role i {
+    margin-right: 8px;
+}
+
+.profile-info .email,
+.profile-info .joined {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.profile-info .email i,
+.profile-info .joined i {
+    margin-right: 8px;
+    width: 16px;
+}
+
+/* ========== FORM ========== */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    transition: 0.3s;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-group input.readonly {
+    background: var(--border);
+    color: var(--text-light);
+    cursor: not-allowed;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.35);
+}
+
+.card-desc {
+    color: var(--text-light);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.glass-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.glass-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.glass-card h2 i {
+    color: var(--primary);
+}
+
+/* ========== DARK MODE ========== */
+body.dark-mode .profile-avatar {
+    border-color: #334155;
+}
+
+body.dark-mode .avatar-upload-btn {
+    background: #2563eb;
+    border-color: #111827;
+}
+
+body.dark-mode .avatar-upload-btn:hover {
+    background: #38bdf8;
+}
+
+body.dark-mode .profile-info h2 {
+    color: #f8fafc;
+}
+
+body.dark-mode .profile-info .email,
+body.dark-mode .profile-info .joined {
+    color: #94a3b8;
+}
+
+body.dark-mode .glass-card {
+    background: #111827;
+    border-color: #334155;
+}
+
+body.dark-mode .glass-card h2 {
+    color: #f8fafc;
+}
+
+body.dark-mode .form-group label {
+    color: #94a3b8;
+}
+
+body.dark-mode .form-group input {
+    background: #1e293b;
+    color: #f8fafc;
+    border-color: #334155;
+}
+
+body.dark-mode .form-group input.readonly {
+    background: #334155;
+    color: #94a3b8;
+}
+
+body.dark-mode .card-desc {
+    color: #94a3b8;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .profile-avatar-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-info {
+        text-align: center;
+    }
+    
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-info h2 {
+        font-size: 22px;
+    }
+}
+</style>
+
+<script>
+// ===============================
+// PROFILE IMAGE PREVIEW
+// ===============================
+function previewProfileImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = document.getElementById('profilePreview');
+            var text = document.getElementById('profilePreviewText');
+            
+            if (img) {
+                img.src = e.target.result;
+                img.style.display = 'block';
+            }
+            if (text) {
+                text.style.display = 'none';
+            }
+        };
+        reader.readAsDataURL(input.files[0]);
+        
+        // Auto submit the form
+        var form = input.closest('form');
+        if (form) {
+            form.submit();
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ Profile page loaded');
+});
+</script>
+{% endblock %}

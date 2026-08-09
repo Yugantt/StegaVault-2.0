@@ -1,0 +1,445 @@
+/*==================================================
+        STEGAVAULT 3.0 - IMAGE.CSS
+        FIXED WITH DASHBOARD VARIABLES
+==================================================*/
+
+/* ========== PAGE ========== */
+.image-page {
+    padding: 0 0 30px 0;
+    width: 100%;
+}
+
+/* ========== HEADER ========== */
+.page-header {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.page-header h1 i {
+    color: var(--primary);
+}
+
+.page-header p {
+    margin-top: 10px;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 750px;
+}
+
+/* ========== GRID ========== */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+/* ========== GLASS CARD ========== */
+.glass-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    height: 100%;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.glass-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: var(--text);
+}
+
+.glass-card h2 i {
+    color: var(--primary);
+}
+
+.section-title {
+    margin: 20px 0 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+/* ========== UPLOAD BOX ========== */
+.upload-box {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+.upload-label {
+    width: 100%;
+    min-height: 220px;
+    border: 2px dashed var(--primary);
+    border-radius: var(--radius);
+    background: rgba(37, 99, 235, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+}
+
+.upload-label:hover {
+    border-color: var(--secondary);
+    background: rgba(37, 99, 235, 0.12);
+    transform: translateY(-3px);
+}
+
+.upload-label i {
+    font-size: 50px;
+    color: var(--primary);
+}
+
+.upload-label .upload-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.upload-label .upload-hint {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+/* ========== FILE INFO ========== */
+.file-info {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+}
+
+.file-info i {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.file-info .file-name {
+    flex: 1;
+    color: var(--text);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-info .remove-file {
+    background: none;
+    border: none;
+    color: var(--danger);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.file-info .remove-file:hover {
+    background: rgba(239, 68, 68, 0.1);
+    transform: scale(1.1);
+}
+
+/* ========== PREVIEW IMAGE ========== */
+.preview-image {
+    display: none;
+    width: 100%;
+    max-height: 260px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin: 20px 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 10px;
+    box-shadow: var(--shadow);
+    transition: 0.3s ease;
+}
+
+.preview-image.show {
+    display: block;
+}
+
+/* ========== TEXTAREA ========== */
+textarea {
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    border: 1px solid var(--border);
+    outline: none;
+    padding: 18px;
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    transition: 0.3s;
+}
+
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+textarea::placeholder {
+    color: var(--text-light);
+}
+
+/* ========== CHARACTER COUNTER ========== */
+.char-counter {
+    text-align: right;
+    margin: 10px 0 22px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+#charCount {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* ========== BUTTONS ========== */
+.primary-btn {
+    width: 100%;
+    margin-top: 22px;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.35);
+}
+
+.secondary-btn {
+    flex: 1;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.secondary-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* ========== DECODED SECTION ========== */
+.decoded-section {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border);
+}
+
+.decoded-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    font-size: 20px;
+    color: var(--text);
+}
+
+.decoded-section h3 i {
+    color: var(--success);
+}
+
+#decodedMessage {
+    width: 100%;
+    min-height: 150px;
+    resize: none;
+    padding: 18px;
+    border: 1px solid var(--border);
+    outline: none;
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Consolas, monospace;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.decoded-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+/* ========== FEATURE LIST ========== */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    color: var(--text);
+    font-size: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.feature-list li:last-child {
+    border-bottom: none;
+}
+
+.feature-list li::before {
+    content: "✔";
+    color: var(--success);
+    font-weight: bold;
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+/* ========== FLASH MESSAGES ========== */
+.flash-container {
+    margin-bottom: 25px;
+}
+
+.flash {
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    animation: fadeUp 0.4s ease;
+}
+
+.flash.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.flash.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.flash.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.flash.info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-header,
+.glass-card {
+    animation: fadeUp 0.6s ease;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1100px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-page {
+        padding: 0 15px 30px 15px;
+    }
+    .page-header h1 {
+        font-size: 28px;
+    }
+    .glass-card {
+        padding: 22px;
+    }
+    .upload-label {
+        min-height: 150px;
+    }
+    .upload-label i {
+        font-size: 40px;
+    }
+    .decoded-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    .page-header h1 {
+        font-size: 24px;
+    }
+    .glass-card h2 {
+        font-size: 20px;
+    }
+}

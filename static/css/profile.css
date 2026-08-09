@@ -1,0 +1,442 @@
+/*==================================================
+        STEGAVAULT 3.0 - PROFILE.CSS
+==================================================*/
+
+.profile-page {
+    padding: 0 0 30px 0;
+    width: 100%;
+}
+
+/* ========== HEADER ========== */
+.page-header {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.page-header h1 i {
+    color: var(--primary);
+}
+
+.page-header p {
+    margin-top: 10px;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* ========== PROFILE CARD ========== */
+.profile-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+}
+
+.avatar-upload {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.avatar-upload .upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid var(--card);
+}
+
+.avatar-upload .upload-label:hover {
+    transform: scale(1.1);
+    background: var(--secondary);
+}
+
+.profile-info h2 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.profile-info .role {
+    color: var(--primary);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.profile-info .role i {
+    margin-right: 8px;
+}
+
+.profile-info .email,
+.profile-info .joined {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.profile-info .email i,
+.profile-info .joined i {
+    margin-right: 8px;
+    width: 16px;
+}
+
+/* ========== GLASS CARD ========== */
+.glass-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.glass-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.glass-card h2 i {
+    color: var(--primary);
+}
+
+.card-desc {
+    color: var(--text-light);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* ========== FORM ========== */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    transition: 0.3s;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-group input.readonly {
+    background: var(--border);
+    color: var(--text-light);
+    cursor: not-allowed;
+}
+
+/* ========== BUTTONS ========== */
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.35);
+}
+
+/* ========== PROFILE GRID ========== */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* ========== STAT ITEMS ========== */
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: var(--text);
+    font-size: 15px;
+}
+
+.stat-label i {
+    margin-right: 10px;
+    color: var(--primary);
+    width: 20px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 992px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-avatar {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-info {
+        text-align: center;
+    }
+    
+    .avatar-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .page-header h1 {
+        font-size: 28px;
+    }
+    
+    .glass-card {
+        padding: 22px;
+    }
+}
+
+@media (max-width: 500px) {
+    .page-header h1 {
+        font-size: 24px;
+    }
+    
+    .profile-info h2 {
+        font-size: 22px;
+    }
+    
+    .glass-card h2 {
+        font-size: 20px;
+    }
+}
+/* ==================================================
+        PROFILE PICTURE UPLOAD - FIX
+================================================== */
+
+/* Avatar wrapper for profile page */
+.avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid var(--primary);
+}
+
+.avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-wrapper .avatar-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+}
+
+/* Camera upload button */
+.avatar-upload {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.avatar-upload .upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid var(--card);
+    font-size: 16px;
+}
+
+.avatar-upload .upload-label:hover {
+    transform: scale(1.1);
+    background: var(--secondary);
+}
+
+/* Profile info */
+.profile-avatar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h2 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.profile-info .role {
+    color: var(--primary);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.profile-info .email,
+.profile-info .joined {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.profile-info i {
+    margin-right: 8px;
+    width: 16px;
+}
+
+/* Profile page card */
+.profile-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-avatar-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-info {
+        text-align: center;
+    }
+    
+    .avatar-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .avatar-wrapper .avatar-text {
+        font-size: 36px;
+    }
+    
+    .profile-info h2 {
+        font-size: 22px;
+    }
+}

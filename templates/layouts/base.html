@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StegaVault 3.0{% endblock %}</title>
+    <meta name="description" content="StegaVault 3.0 - Secure Steganography Platform">
+    <meta name="author" content="StegaVault">
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- Dashboard CSS - Only for dashboard pages -->
+    {% if request.endpoint and ('dashboard' in request.endpoint or 'image' in request.endpoint or 'audio' in request.endpoint or 'video' in request.endpoint or 'history' in request.endpoint or 'profile' in request.endpoint or 'settings' in request.endpoint) %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    {% endif %}
+
+    <!-- Page CSS -->
+    {% block extra_css %}{% endblock %}
+
+</head>
+
+<body>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer (Hide on Dashboard/Admin/Pages) -->
+    {% if request.endpoint
+          and 'dashboard' not in request.endpoint
+          and 'admin' not in request.endpoint
+          and 'image' not in request.endpoint
+          and 'audio' not in request.endpoint
+          and 'video' not in request.endpoint
+          and 'history' not in request.endpoint
+          and 'profile' not in request.endpoint
+          and 'settings' not in request.endpoint %}
+
+    <footer class="footer">
+        <p>© 2026 StegaVault 3.0 | Secure Steganography Platform</p>
+    </footer>
+
+    {% endif %}
+
+    <!-- Main JS -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <!-- Dashboard JS - Only for dashboard pages -->
+    {% if request.endpoint and ('dashboard' in request.endpoint or 'image' in request.endpoint or 'audio' in request.endpoint or 'video' in request.endpoint or 'history' in request.endpoint or 'profile' in request.endpoint or 'settings' in request.endpoint) %}
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    {% endif %}
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Flask
+instance/
+.env
+*.db
+*.sqlite
+
+# Uploads
+uploads/
+outputs/
+temp/
+static/output/
+static/uploads/
+static/profile/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+login_logs/
+
+
+
+# Project specific
+project_tree.txt
+structure.txt

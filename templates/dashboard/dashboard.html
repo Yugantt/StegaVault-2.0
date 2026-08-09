@@ -1,0 +1,136 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Dashboard | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<!-- ================= PAGE HEADER ================= -->
+<div class="page-header">
+    <h1>
+        <i class="fas fa-chart-line"></i>
+        {{ _('Dashboard') }}
+    </h1>
+    <p>Welcome back, <strong>{{ username|default('User') }}</strong>!</p>
+</div>
+
+<!-- ================= Statistics ================= -->
+<section class="stats">
+    <div class="stat-card blue">
+        <div class="stat-icon">
+            <i class="fas fa-image"></i>
+        </div>
+        <div class="stat-info">
+            <h2>{{ stats.images_encoded }}</h2>
+            <p>{{ _('Images Encoded') }}</p>
+        </div>
+    </div>
+
+    <div class="stat-card green">
+        <div class="stat-icon">
+            <i class="fas fa-lock-open"></i>
+        </div>
+        <div class="stat-info">
+            <h2>{{ stats.images_decoded }}</h2>
+            <p>{{ _('Images Decoded') }}</p>
+        </div>
+    </div>
+
+    <div class="stat-card purple">
+        <div class="stat-icon">
+            <i class="fas fa-music"></i>
+        </div>
+        <div class="stat-info">
+            <h2>{{ stats.audio_files }}</h2>
+            <p>{{ _('Audio Files') }}</p>
+        </div>
+    </div>
+
+    <div class="stat-card orange">
+        <div class="stat-icon">
+            <i class="fas fa-video"></i>
+        </div>
+        <div class="stat-info">
+            <h2>{{ stats.video_files }}</h2>
+            <p>{{ _('Video Files') }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= Quick Actions ================= -->
+<section class="quick-actions">
+    <div class="action-card">
+        <div class="action-icon">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h3>{{ _('Encode Image') }}</h3>
+        <p>{{ _('Hide a secret message inside an image.') }}</p>
+        <a href="{{ url_for('image.image') }}" class="action-btn">
+            <i class="fas fa-arrow-right"></i> {{ _('Open') }}
+        </a>
+    </div>
+
+    <div class="action-card">
+        <div class="action-icon">
+            <i class="fas fa-unlock"></i>
+        </div>
+        <h3>{{ _('Decode Image') }}</h3>
+        <p>{{ _('Reveal hidden messages from encoded images.') }}</p>
+        <a href="{{ url_for('image.image') }}" class="action-btn">
+            <i class="fas fa-search"></i> {{ _('Decode') }}
+        </a>
+    </div>
+
+    <div class="action-card">
+        <div class="action-icon">
+            <i class="fas fa-clock-rotate-left"></i>
+        </div>
+        <h3>{{ _('History') }}</h3>
+        <p>{{ _('View your recent encoding and decoding activity.') }}</p>
+        <a href="{{ url_for('history.history_page') }}" class="action-btn">
+            <i class="fas fa-eye"></i> {{ _('View') }}
+        </a>
+    </div>
+</section>
+
+<!-- ================= Recent Activity ================= -->
+<section class="activity-card">
+    <div class="activity-header">
+        <h2>
+            <i class="fas fa-clock-rotate-left"></i>
+            {{ _('Recent Activity') }}
+        </h2>
+    </div>
+
+    <div class="activity-list">
+        {% if activities %}
+            {% for activity in activities %}
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas {{ activity.icon }}"></i>
+                </div>
+                <div class="activity-content">
+                    <strong>{{ activity.title }}</strong>
+                    <small>{{ activity.time }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="activity-content">
+                    <strong>No Recent Activity</strong>
+                    <small>{{ _('Your encoding and decoding history will appear here.') }}</small>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,191 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Audio Steganography | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/audio.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="audio-page">
+
+    <!-- ================= HEADER ================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-music"></i>
+            {{ _('Audio Steganography') }}
+        </h1>
+        <p>
+            {{ _('Hide or reveal secret messages inside WAV audio files using LSB Steganography.') }}
+        </p>
+    </div>
+
+    <!-- ================= MAIN GRID ================= -->
+    <div class="audio-grid">
+
+        <!-- ========================================= -->
+        <!-- ENCODE CARD -->
+        <!-- ========================================= -->
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-lock"></i>
+                {{ _('Encode Audio') }}
+            </h2>
+
+            <form id="encodeForm" action="{{ url_for('audio.audio_encode') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <p class="section-title">{{ _('Select Audio File') }}</p>
+                <div class="upload-box">
+                    <input type="file" id="encodeAudio" name="audio" accept=".wav" required>
+                    <label for="encodeAudio" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>{{ _('Choose WAV File') }}</span>
+                    </label>
+                </div>
+
+                <p class="section-title">{{ _('Secret Message') }}</p>
+                <textarea 
+                    id="messageBox" 
+                    name="message" 
+                    maxlength="500" 
+                    placeholder="Enter your secret message..." 
+                    required
+                ></textarea>
+                <div class="char-counter">
+                    <span id="charCount">0</span>/500 Characters
+                </div>
+
+
+                <p class="section-title">{{ _('Encryption Password (optional)') }}</p>
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="encodePassword"
+                        name="password"
+                        class="password-input"
+                        placeholder="{{ _('Password') }}"
+                        autocomplete="new-password"
+                    >
+                    <button type="button" class="password-toggle" data-target="encodePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p class="password-hint">
+                    <i class="fas fa-shield-halved"></i>
+                    {{ _('Leave blank for no encryption') }}
+                </p>
+                <button type="submit" class="primary-btn">
+                    <i class="fas fa-lock"></i>
+                    {{ _('Encode Audio') }}
+                </button>
+            </form>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- DECODE CARD -->
+        <!-- ========================================= -->
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-unlock"></i>
+                {{ _('Decode Audio') }}
+            </h2>
+
+            <form id="decodeForm" action="{{ url_for('audio.audio_decode') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <p class="section-title">{{ _('Select Encoded Audio') }}</p>
+                <div class="upload-box">
+                    <input type="file" id="decodeAudio" name="audio" accept=".wav" required>
+                    <label for="decodeAudio" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>{{ _('Choose WAV File') }}</span>
+                    </label>
+                </div>
+
+
+                <p class="section-title">{{ _('Decryption Password (if encrypted)') }}</p>
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="decodePassword"
+                        name="password"
+                        class="password-input"
+                        placeholder="{{ _('Password') }}"
+                        autocomplete="new-password"
+                    >
+                    <button type="button" class="password-toggle" data-target="decodePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p class="password-hint">
+                    <i class="fas fa-shield-halved"></i>
+                    {{ _('Only needed if the message is encrypted') }}
+                </p>
+                <button type="submit" class="primary-btn">
+                    <i class="fas fa-search"></i>
+                    {{ _('Decode Audio') }}
+                </button>
+            </form>
+
+            <!-- ========== RESULT ========== -->
+            <div class="decoded-section">
+                <h3>
+                    <i class="fas fa-key"></i>
+                    {{ _('Decoded Secret Message') }}
+                </h3>
+                <textarea id="decodedMessage" readonly>{% if decoded_message %}{{ decoded_message }}{% else %}No secret message decoded yet...{% endif %}</textarea>
+                <div class="decoded-buttons">
+                    <button type="button" id="copyBtn" class="secondary-btn">
+                        <i class="fas fa-copy"></i> {{ _('Copy') }}
+                    </button>
+                    <button type="button" id="toggleBtn" class="secondary-btn">
+                        <i class="fas fa-eye"></i> {{ _('Show / Hide') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= BOTTOM GRID ================= -->
+    <div class="bottom-grid">
+
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-check-circle"></i>
+                {{ _('Supported Features') }}
+            </h2>
+            <ul class="feature-list">
+                <li>WAV Audio Files</li>
+                <li>LSB Audio Encoding</li>
+                <li>Secure Secret Messages</li>
+                <li>Fast Processing</li>
+                <li>Lossless Encoding</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-lightbulb"></i>
+                {{ _('Tips') }}
+            </h2>
+            <ul class="feature-list">
+                <li>Use uncompressed WAV files.</li>
+                <li>Avoid editing encoded audio.</li>
+                <li>Keep messages reasonably short.</li>
+                <li>Store encoded files safely.</li>
+                <li>Use high-quality audio sources.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/audio.js') }}"></script>
+{% endblock %}

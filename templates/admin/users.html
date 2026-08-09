@@ -1,0 +1,265 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Manage Users | Admin | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="admin-page">
+
+    <!-- ================= HEADER ================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-users-gear"></i>
+            {{ _('Manage Users') }}
+        </h1>
+        <p>
+            {{ _('View and manage all registered users.') }}
+        </p>
+    </div>
+
+    <!-- ================= USERS TABLE ================= -->
+    <section class="activity-card">
+        <div class="activity-header">
+            <h2>
+                <i class="fas fa-users"></i>
+                All Users
+                <span class="badge-count">{{ users|length }}</span>
+            </h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ _('Username') }}</th>
+                        <th>{{ _('Email') }}</th>
+                        <th>{{ _('Role') }}</th>
+                        <th>{{ _('Status') }}</th>
+                        <th>{{ _('Joined') }}</th>
+                        <th class="text-center">{{ _('Actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if users %}
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="user-cell">
+                                <div class="user-avatar">
+                                    {{ user.username[0]|upper }}
+                                </div>
+                                <span>{{ user.username }}</span>
+                            </div>
+                        </td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.role == 'admin' %}
+                                <span class="badge-admin">
+                                    <i class="fas fa-shield-halved"></i> {{ _('Admin') }}
+                                </span>
+                            {% else %}
+                                <span class="badge-user">
+                                    <i class="fas fa-user"></i> {{ _('User') }}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.is_active %}
+                                <span class="badge-active">
+                                    <i class="fas fa-circle-check"></i> {{ _('Active') }}
+                                </span>
+                            {% else %}
+                                <span class="badge-inactive">
+                                    <i class="fas fa-circle-xmark"></i> {{ _('Inactive') }}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.created_at.strftime('%d %b %Y') if user.created_at else 'N/A' }}</td>
+                        <td class="text-center">
+                            <div class="action-buttons">
+                                {% if user.role != 'admin' %}
+                                <form method="POST" action="{{ url_for('admin.admin_promote_user', user_id=user.id) }}"
+                                      style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn-sm promote-btn" title="Promote to Admin">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                                <form method="POST" action="{{ url_for('admin.admin_delete_user', user_id=user.id) }}"
+                                      style="display:inline;"
+                                      onsubmit="return confirm('Are you sure you want to delete user {{ user.username }}?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn-sm delete-btn" title="Delete User">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <i class="fas fa-users"></i>
+                            <p>{{ _('No users found.') }}</p>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ================= BACK TO ADMIN ================= -->
+    <div style="margin-top:20px;">
+        <a href="{{ url_for('admin.admin_dashboard') }}" class="action-btn">
+            <i class="fas fa-arrow-left"></i> {{ _('Back to Admin Dashboard') }}
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<style>
+/* ========== USER CELL ========== */
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    flex-shrink: 0;
+}
+
+/* ========== BADGES ========== */
+.badge-admin {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-active {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-inactive {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ========== ACTION BUTTONS ========== */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.promote-btn {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+}
+
+.promote-btn:hover {
+    background: #22c55e;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+}
+
+.delete-btn:hover {
+    background: #ef4444;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* ========== BADGE COUNT ========== */
+.badge-count {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+}
+</style>
+{% endblock %}

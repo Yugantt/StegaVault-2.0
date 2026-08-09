@@ -1,0 +1,117 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Login - StegaVault 2.0{% endblock %}
+
+{% block content %}
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            <h1>{{ _('🔐 StegaVault 2.0') }}</h1>
+            <p>{{ _('Secure Steganography Platform') }}</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.login') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <!-- Email -->
+            <div class="form-group">
+
+                <label for="email">{{ _('Email Address') }}</label>
+
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    spellcheck="false"
+                    maxlength="120"
+                    autofocus
+                    required
+                >
+
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+
+                <label for="password">{{ _('Password') }}</label>
+
+                <div class="password-box">
+
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        minlength="6"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="togglePassword('password', this)"
+                        aria-label="Show or hide password"
+                    >
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Options -->
+            <div class="login-options">
+
+                <label class="remember-me">
+
+                    <input
+                        type="checkbox"
+                        name="remember"
+                    >
+
+                    <span>{{ _('Remember Me') }}</span>
+
+                </label>
+
+                <a href="{{ url_for('auth.forgot_password') }}">
+                    {{ _('Forgot Password?') }}
+                </a>
+
+            </div>
+
+            <!-- Login Button -->
+            <button class="login-btn" type="submit">
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                {{ _('Login') }}
+
+            </button>
+
+        </form>
+
+        <div class="login-footer">
+
+            <p>
+
+                Don't have an account?
+
+                <a href="{{ url_for('auth.register') }}">
+                    {{ _('Create Account') }}
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

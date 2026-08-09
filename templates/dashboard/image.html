@@ -1,0 +1,418 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Image Steganography | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/image.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="image-page">
+
+    <!-- ================= HEADER ================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-image"></i>
+            {{ _('Image Steganography') }}
+        </h1>
+        <p>
+            {{ _('Hide and reveal secret messages inside images using
+            Least Significant Bit (LSB) Steganography.') }}
+        </p>
+    </div>
+
+    <!-- ================= MAIN GRID ================= -->
+    <div class="image-grid">
+
+        <!-- ================================================= -->
+        <!-- ENCODE CARD -->
+        <!-- ================================================= -->
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-lock"></i>
+                {{ _('Encode Image') }}
+            </h2>
+
+            <form id="encodeForm" action="{{ url_for('image.image_encode') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <p class="section-title">{{ _('Select Image') }}</p>
+                <div class="upload-box" id="encodeUploadBox">
+                    <input type="file" id="encodeImage" name="image" accept=".png,.jpg,.jpeg" style="display:none;" required>
+                    <label for="encodeImage" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span class="upload-text">{{ _('Choose Image') }}</span>
+                        <span class="upload-hint">{{ _('or drag and drop here') }}</span>
+                    </label>
+                    <div class="file-info" id="encodeFileInfo" style="display:none;">
+                        <i class="fas fa-file-image"></i>
+                        <span class="file-name"></span>
+                        <button type="button" class="remove-file" onclick="removeFile('encode')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <img id="encodePreview" class="preview-image" src="" alt="Preview" style="display:none;">
+
+                <p class="section-title">{{ _('Secret Message') }}</p>
+                <textarea
+                    id="messageBox"
+                    name="message"
+                    maxlength="500"
+                    placeholder="Enter your secret message..."
+                    required
+                ></textarea>
+                <div class="char-counter">
+                    <span id="charCount">0</span>/500 Characters
+                </div>
+
+
+                <p class="section-title">{{ _('Encryption Password (optional)') }}</p>
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="encodePassword"
+                        name="password"
+                        class="password-input"
+                        placeholder="{{ _('Password') }}"
+                        autocomplete="new-password"
+                    >
+                    <button type="button" class="password-toggle" data-target="encodePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p class="password-hint">
+                    <i class="fas fa-shield-halved"></i>
+                    {{ _('Leave blank for no encryption') }}
+                </p>
+                <button type="submit" class="primary-btn">
+                    <i class="fas fa-lock"></i>
+                    {{ _('Encode Image') }}
+                </button>
+            </form>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- DECODE CARD -->
+        <!-- ================================================= -->
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-unlock"></i>
+                {{ _('Decode Image') }}
+            </h2>
+
+            <form id="decodeForm" action="{{ url_for('image.image_decode') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <p class="section-title">{{ _('Select Encoded Image') }}</p>
+                <div class="upload-box" id="decodeUploadBox">
+                    <input type="file" id="decodeImage" name="image" accept=".png,.jpg,.jpeg" style="display:none;" required>
+                    <label for="decodeImage" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span class="upload-text">{{ _('Choose Image') }}</span>
+                        <span class="upload-hint">{{ _('or drag and drop here') }}</span>
+                    </label>
+                    <div class="file-info" id="decodeFileInfo" style="display:none;">
+                        <i class="fas fa-file-image"></i>
+                        <span class="file-name"></span>
+                        <button type="button" class="remove-file" onclick="removeFile('decode')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <img id="decodePreview" class="preview-image" src="" alt="Preview" style="display:none;">
+
+
+                <p class="section-title">{{ _('Decryption Password (if encrypted)') }}</p>
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="decodePassword"
+                        name="password"
+                        class="password-input"
+                        placeholder="{{ _('Password') }}"
+                        autocomplete="new-password"
+                    >
+                    <button type="button" class="password-toggle" data-target="decodePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p class="password-hint">
+                    <i class="fas fa-shield-halved"></i>
+                    {{ _('Only needed if the message is encrypted') }}
+                </p>
+                <button type="submit" class="primary-btn">
+                    <i class="fas fa-search"></i>
+                    {{ _('Decode Image') }}
+                </button>
+            </form>
+
+            <!-- ================= RESULT ================= -->
+            <div class="decoded-section">
+                <h3>
+                    <i class="fas fa-key"></i>
+                    {{ _('Decoded Secret Message') }}
+                </h3>
+                <textarea
+                    id="decodedMessage"
+                    readonly
+                    placeholder="Decoded message will appear here..."
+                >{% if decoded_message %}{{ decoded_message }}{% endif %}</textarea>
+                <div class="decoded-buttons">
+                    <button type="button" id="copyBtn" class="secondary-btn">
+                        <i class="fas fa-copy"></i> {{ _('Copy') }}
+                    </button>
+                    <button type="button" id="toggleBtn" class="secondary-btn">
+                        <i class="fas fa-eye"></i> {{ _('Show / Hide') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= BOTTOM GRID ================= -->
+    <div class="bottom-grid">
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-check-circle"></i>
+                {{ _('Supported Features') }}
+            </h2>
+            <ul class="feature-list">
+                <li>PNG Images</li>
+                <li>JPG Images</li>
+                <li>JPEG Images</li>
+                <li>LSB Encoding</li>
+                <li>Secure Message Hiding</li>
+                <li>Instant Decoding</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-lightbulb"></i>
+                {{ _('Tips') }}
+            </h2>
+            <ul class="feature-list">
+                <li>Use high-quality images.</li>
+                <li>Don't compress encoded images.</li>
+                <li>Keep messages short.</li>
+                <li>Store encoded images safely.</li>
+                <li>Share only the encoded image.</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+{{ super() }}
+<script>
+// ===============================
+// IMAGE PREVIEW
+// ===============================
+function setupImagePreview(inputId, previewId, type) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+    const fileInfo = document.getElementById(type + 'FileInfo');
+    const fileName = fileInfo ? fileInfo.querySelector('.file-name') : null;
+    const uploadLabel = input ? input.closest('.upload-box').querySelector('.upload-label') : null;
+
+    if (!input || !preview) return;
+
+    input.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const file = this.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                preview.classList.add('show');
+            };
+            
+            reader.readAsDataURL(file);
+            
+            if (fileInfo && fileName) {
+                fileName.textContent = file.name;
+                fileInfo.style.display = 'flex';
+                if (uploadLabel) uploadLabel.style.display = 'none';
+            }
+        } else {
+            preview.style.display = 'none';
+            preview.classList.remove('show');
+            if (fileInfo) fileInfo.style.display = 'none';
+            if (uploadLabel) uploadLabel.style.display = 'flex';
+        }
+    });
+}
+
+// ===============================
+// REMOVE FILE
+// ===============================
+function removeFile(type) {
+    const input = document.getElementById(type + 'Image');
+    const fileInfo = document.getElementById(type + 'FileInfo');
+    const preview = document.getElementById(type + 'Preview');
+    const uploadLabel = input ? input.closest('.upload-box').querySelector('.upload-label') : null;
+
+    if (input) input.value = '';
+    if (fileInfo) fileInfo.style.display = 'none';
+    if (preview) {
+        preview.style.display = 'none';
+        preview.classList.remove('show');
+    }
+    if (uploadLabel) uploadLabel.style.display = 'flex';
+}
+
+// ===============================
+// DRAG AND DROP
+// ===============================
+document.querySelectorAll('.upload-box').forEach(box => {
+    const input = box.querySelector('input[type="file"]');
+    const label = box.querySelector('.upload-label');
+
+    if (!input || !label) return;
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        box.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        box.addEventListener(eventName, () => {
+            box.classList.add('dragover');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        box.addEventListener(eventName, () => {
+            box.classList.remove('dragover');
+        });
+    });
+
+    box.addEventListener('drop', function(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length > 0) {
+            input.files = files;
+            input.dispatchEvent(new Event('change'));
+        }
+    });
+});
+
+// ===============================
+// CHARACTER COUNTER
+// ===============================
+document.addEventListener('DOMContentLoaded', function() {
+    // Setup image previews
+    setupImagePreview('encodeImage', 'encodePreview', 'encode');
+    setupImagePreview('decodeImage', 'decodePreview', 'decode');
+
+    // Character counter
+    const messageBox = document.getElementById('messageBox');
+    const charCount = document.getElementById('charCount');
+    
+    if (messageBox && charCount) {
+        charCount.textContent = messageBox.value.length;
+        
+        messageBox.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = count;
+            
+            if (count > 450) {
+                charCount.style.color = '#ef4444';
+            } else if (count > 400) {
+                charCount.style.color = '#f59e0b';
+            } else {
+                charCount.style.color = '#3b82f6';
+            }
+        });
+    }
+
+    // ===============================
+    // COPY BUTTON
+    // ===============================
+    const copyBtn = document.getElementById('copyBtn');
+    const decodedMessage = document.getElementById('decodedMessage');
+    
+    if (copyBtn && decodedMessage) {
+        copyBtn.addEventListener('click', function() {
+            const message = decodedMessage.value;
+            if (message && message.trim() !== '') {
+                navigator.clipboard.writeText(message).then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy!');
+                });
+            } else {
+                alert('Nothing to copy!');
+            }
+        });
+    }
+
+    // ===============================
+    // TOGGLE BUTTON
+    // ===============================
+    const toggleBtn = document.getElementById('toggleBtn');
+    
+    if (toggleBtn && decodedMessage) {
+        let hidden = true;
+        decodedMessage.style.webkitTextSecurity = 'disc';
+        toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Show';
+        
+        toggleBtn.addEventListener('click', function() {
+            if (decodedMessage.value.trim() === '') return;
+            
+            if (hidden) {
+                decodedMessage.style.webkitTextSecurity = 'none';
+                toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide';
+                hidden = false;
+            } else {
+                decodedMessage.style.webkitTextSecurity = 'disc';
+                toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Show';
+                hidden = true;
+            }
+        });
+    }
+});
+</script>
+
+<script>
+// ===============================
+// PROGRESS BAR
+// ===============================
+document.addEventListener('DOMContentLoaded', function () {
+    if (!window.StegaProgress) return;
+
+    StegaProgress.attach({
+        form: document.getElementById('encodeForm'),
+        title: 'Encoding Image',
+        fallbackName: 'encoded.png'
+    });
+
+    StegaProgress.attach({
+        form: document.getElementById('decodeForm'),
+        title: 'Decoding Image',
+        onMessage: function (message) {
+            var box = document.getElementById('decodedMessage');
+            if (box) box.value = message;
+        }
+    });
+});
+</script>
+{% endblock %}

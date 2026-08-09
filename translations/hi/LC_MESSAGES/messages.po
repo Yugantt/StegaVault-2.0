@@ -1,0 +1,733 @@
+# Hindi translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-07-31 07:04+0000\n"
+"PO-Revision-Date: 2026-07-30 19:37+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: hi\n"
+"Language-Team: hi <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: templates/admin/admin.html:17 templates/dashboard/admin_dashboard.html:36
+msgid "Admin Dashboard"
+msgstr "व्यवस्थापक डैशबोर्ड"
+
+#: templates/admin/admin.html:20
+msgid "Manage users, security and system activity."
+msgstr "उपयोगकर्ता, सुरक्षा और सिस्टम गतिविधि प्रबंधित करें।"
+
+#: templates/admin/admin.html:32
+msgid "Total Users"
+msgstr "कुल उपयोगकर्ता"
+
+#: templates/admin/admin.html:42
+msgid "Images Processed"
+msgstr "संसाधित छवियाँ"
+
+#: templates/admin/admin.html:52
+msgid "Total Operations"
+msgstr "कुल संचालन"
+
+#: templates/admin/admin.html:62
+msgid "Videos Processed"
+msgstr "संसाधित वीडियो"
+
+#: templates/admin/admin.html:73 templates/admin/users.html:17
+#: templates/dashboard/admin_dashboard.html:131
+msgid "Manage Users"
+msgstr "उपयोगकर्ता प्रबंधन"
+
+#: templates/admin/admin.html:74
+msgid "View and manage registered users."
+msgstr "पंजीकृत उपयोगकर्ताओं को देखें और प्रबंधित करें।"
+
+#: templates/admin/admin.html:76 templates/admin/admin.html:87
+#: templates/admin/admin.html:98 templates/dashboard/history.html:136
+#: templates/dashboard/history.html:147 templates/dashboard/history.html:158
+msgid "Open"
+msgstr "खोलें"
+
+#: templates/admin/admin.html:84 templates/admin/security.html:18
+#: templates/dashboard/admin_dashboard.html:143
+#: templates/dashboard/dashboard.html:58
+#: templates/layouts/dashboard_base.html:58
+msgid "Security"
+msgstr "सुरक्षा"
+
+#: templates/admin/admin.html:85
+msgid "Monitor system security settings."
+msgstr "सिस्टम सुरक्षा सेटिंग्स की निगरानी करें।"
+
+#: templates/admin/admin.html:95 templates/dashboard/admin_dashboard.html:155
+msgid "Reports"
+msgstr "रिपोर्ट"
+
+#: templates/admin/admin.html:96
+msgid "Check system activity reports."
+msgstr "सिस्टम गतिविधि रिपोर्ट देखें।"
+
+#: templates/admin/admin.html:108
+msgid "Recent Activity"
+msgstr "हाल की गतिविधि"
+
+#: templates/admin/admin.html:136
+msgid "No Recent Activity"
+msgstr "कोई हाल की गतिविधि नहीं"
+
+#: templates/admin/admin.html:137
+msgid "System activity will appear here."
+msgstr "सिस्टम गतिविधि यहाँ दिखाई देगी।"
+
+#: templates/admin/history.html:12
+msgid "System History"
+msgstr "सिस्टम इतिहास"
+
+#: templates/admin/history.html:15
+msgid "View all user activities across the platform."
+msgstr "प्लेटफ़ॉर्म पर सभी उपयोगकर्ता गतिविधियाँ देखें।"
+
+#: templates/admin/history.html:33 templates/admin/security.html:93
+#: templates/admin/security.html:198 templates/admin/users.html:68
+msgid "User"
+msgstr "उपयोगकर्ता"
+
+#: templates/admin/history.html:34 templates/dashboard/history.html:62
+msgid "Module"
+msgstr "मॉड्यूल"
+
+#: templates/admin/history.html:35 templates/dashboard/history.html:65
+msgid "Action"
+msgstr "क्रिया"
+
+#: templates/admin/history.html:36 templates/dashboard/history.html:63
+msgid "Filename"
+msgstr "फ़ाइल नाम"
+
+#: templates/admin/history.html:37 templates/dashboard/history.html:64
+msgid "Date & Time"
+msgstr "दिनांक और समय"
+
+#: templates/admin/history.html:49 templates/dashboard/history.html:76
+msgid "Encode"
+msgstr "एन्कोड"
+
+#: templates/admin/history.html:51 templates/dashboard/history.html:80
+msgid "Decode"
+msgstr "डिकोड"
+
+#: templates/admin/history.html:62 templates/dashboard/history.html:117
+msgid "No history found."
+msgstr "कोई इतिहास नहीं मिला।"
+
+#: templates/admin/history.html:73 templates/admin/users.html:123
+msgid "Back to Admin Dashboard"
+msgstr "व्यवस्थापक डैशबोर्ड पर वापस जाएँ"
+
+#: templates/admin/security.html:20
+msgid "Monitor login activity and control access to user accounts."
+msgstr "लॉगिन गतिविधि की निगरानी करें और उपयोगकर्ता खातों तक पहुँच नियंत्रित करें।"
+
+#: templates/admin/security.html:34
+msgid "Login Attempts"
+msgstr "लॉगिन प्रयास"
+
+#: templates/admin/security.html:44
+msgid "Failed (last 24h)"
+msgstr "असफल (पिछले 24 घंटे)"
+
+#: templates/admin/security.html:54
+msgid "Locked Accounts"
+msgstr "लॉक किए गए खाते"
+
+#: templates/admin/security.html:70
+msgid "Last Failed Attempt"
+msgstr "अंतिम असफल प्रयास"
+
+#: templates/admin/security.html:84
+msgid "Account Control"
+msgstr "खाता नियंत्रण"
+
+#: templates/admin/security.html:86
+msgid "Lock an account to block login, or set a new password."
+msgstr "लॉगिन रोकने के लिए खाता लॉक करें, या नया पासवर्ड सेट करें।"
+
+#: templates/admin/security.html:94 templates/admin/security.html:197
+#: templates/admin/users.html:40 templates/dashboard/settings.html:45
+msgid "Email"
+msgstr "ईमेल"
+
+#: templates/admin/security.html:95 templates/admin/users.html:41
+#: templates/dashboard/profile.html:87
+msgid "Role"
+msgstr "भूमिका"
+
+#: templates/admin/security.html:96 templates/admin/users.html:42
+msgid "Status"
+msgstr "स्थिति"
+
+#: templates/admin/security.html:97
+msgid "Last Login"
+msgstr "अंतिम लॉगिन"
+
+#: templates/admin/security.html:98 templates/admin/users.html:44
+msgid "Actions"
+msgstr "क्रियाएँ"
+
+#: templates/admin/security.html:109 templates/admin/users.html:75
+msgid "Active"
+msgstr "सक्रिय"
+
+#: templates/admin/security.html:111
+msgid "Locked"
+msgstr "लॉक"
+
+#: templates/admin/security.html:130
+msgid "Lock"
+msgstr "लॉक करें"
+
+#: templates/admin/security.html:134
+msgid "Unlock"
+msgstr "अनलॉक करें"
+
+#: templates/admin/security.html:150
+msgid "Reset"
+msgstr "रीसेट"
+
+#: templates/admin/security.html:159 templates/admin/users.html:111
+msgid "No users found."
+msgstr "कोई उपयोगकर्ता नहीं मिला।"
+
+#: templates/admin/security.html:167
+msgid ""
+"Leave the password box empty to generate a random one - it is shown once\n"
+"            in the confirmation message."
+msgstr ""
+
+#: templates/admin/security.html:181
+msgid "Login Activity"
+msgstr "लॉगिन गतिविधि"
+
+#: templates/admin/security.html:187
+msgid "Clear Log"
+msgstr "लॉग साफ़ करें"
+
+#: templates/admin/security.html:196
+msgid "When"
+msgstr "कब"
+
+#: templates/admin/security.html:199
+msgid "Result"
+msgstr "परिणाम"
+
+#: templates/admin/security.html:200
+msgid "Reason"
+msgstr "कारण"
+
+#: templates/admin/security.html:201
+msgid "IP Address"
+msgstr "आईपी पता"
+
+#: templates/admin/security.html:216
+msgid "Success"
+msgstr "सफल"
+
+#: templates/admin/security.html:218
+msgid "Blocked"
+msgstr "अवरुद्ध"
+
+#: templates/admin/security.html:220
+msgid "Failed"
+msgstr "असफल"
+
+#: templates/admin/security.html:229
+msgid "No login attempts recorded yet."
+msgstr "अभी तक कोई लॉगिन प्रयास दर्ज नहीं हुआ।"
+
+#: templates/admin/users.html:20
+msgid "View and manage all registered users."
+msgstr "सभी पंजीकृत उपयोगकर्ताओं को देखें और प्रबंधित करें।"
+
+#: templates/admin/users.html:39 templates/auth/register.html:21
+#: templates/dashboard/profile.html:77
+msgid "Username"
+msgstr "उपयोगकर्ता नाम"
+
+#: templates/admin/users.html:43
+msgid "Joined"
+msgstr "शामिल हुए"
+
+#: templates/admin/users.html:64
+msgid "Admin"
+msgstr "व्यवस्थापक"
+
+#: templates/admin/users.html:79
+msgid "Inactive"
+msgstr "निष्क्रिय"
+
+#: templates/auth/login.html:12
+msgid "🔐 StegaVault 2.0"
+msgstr "🔐 StegaVault 2.0"
+
+#: templates/auth/login.html:13
+msgid "Secure Steganography Platform"
+msgstr "सुरक्षित स्टेगनोग्राफी प्लेटफ़ॉर्म"
+
+#: templates/auth/login.html:22 templates/auth/register.html:34
+#: templates/dashboard/profile.html:82
+msgid "Email Address"
+msgstr "ईमेल पता"
+
+#: templates/auth/login.html:41 templates/auth/register.html:47
+#: templates/dashboard/audio.html:68 templates/dashboard/audio.html:115
+#: templates/dashboard/image.html:79 templates/dashboard/image.html:136
+#: templates/dashboard/video.html:76 templates/dashboard/video.html:131
+msgid "Password"
+msgstr "पासवर्ड"
+
+#: templates/auth/login.html:78
+msgid "Remember Me"
+msgstr "मुझे याद रखें"
+
+#: templates/auth/login.html:83
+msgid "Forgot Password?"
+msgstr "पासवर्ड भूल गए?"
+
+#: templates/auth/login.html:93 templates/auth/register.html:101
+msgid "Login"
+msgstr "लॉगिन"
+
+#: templates/auth/login.html:106 templates/auth/register.html:12
+#: templates/auth/register.html:93
+msgid "Create Account"
+msgstr "खाता बनाएँ"
+
+#: templates/auth/register.html:13
+msgid "Join StegaVault 3.0"
+msgstr "StegaVault 3.0 से जुड़ें"
+
+#: templates/auth/register.html:71
+msgid "Confirm Password"
+msgstr "पासवर्ड की पुष्टि करें"
+
+#: templates/dashboard/admin_dashboard.html:23
+#: templates/dashboard/dashboard.html:40
+#: templates/layouts/dashboard_base.html:40
+msgid "StegaVault"
+msgstr "StegaVault"
+
+#: templates/dashboard/admin_dashboard.html:25
+#: templates/dashboard/dashboard.html:41
+#: templates/layouts/dashboard_base.html:41
+msgid "Secure Steganography"
+msgstr "सुरक्षित स्टेगनोग्राफी"
+
+#: templates/dashboard/admin_dashboard.html:45
+#: templates/dashboard/dashboard.html:50
+#: templates/layouts/dashboard_base.html:50
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+#: templates/dashboard/admin_dashboard.html:57
+#: templates/dashboard/dashboard.html:66 templates/dashboard/history.html:133
+#: templates/layouts/dashboard_base.html:66
+msgid "Image"
+msgstr "छवि"
+
+#: templates/dashboard/admin_dashboard.html:69
+#: templates/dashboard/dashboard.html:73 templates/dashboard/history.html:144
+#: templates/layouts/dashboard_base.html:73
+msgid "Audio"
+msgstr "ऑडियो"
+
+#: templates/dashboard/admin_dashboard.html:81
+#: templates/dashboard/dashboard.html:80 templates/dashboard/history.html:155
+#: templates/layouts/dashboard_base.html:80
+msgid "Video"
+msgstr "वीडियो"
+
+#: templates/dashboard/admin_dashboard.html:93
+#: templates/dashboard/dashboard.html:87
+#: templates/layouts/dashboard_base.html:87
+msgid "History"
+msgstr "इतिहास"
+
+#: templates/dashboard/admin_dashboard.html:105
+#: templates/dashboard/dashboard.html:94 templates/dashboard/dashboard.html:202
+#: templates/layouts/dashboard_base.html:94
+#: templates/layouts/dashboard_base.html:202
+msgid "Profile"
+msgstr "प्रोफ़ाइल"
+
+#: templates/dashboard/admin_dashboard.html:117
+#: templates/dashboard/dashboard.html:101
+#: templates/dashboard/dashboard.html:205 templates/dashboard/settings.html:17
+#: templates/layouts/dashboard_base.html:101
+#: templates/layouts/dashboard_base.html:205
+msgid "Settings"
+msgstr "सेटिंग्स"
+
+#: templates/dashboard/admin_dashboard.html:199
+#: templates/dashboard/dashboard.html:126
+#: templates/dashboard/dashboard.html:209
+#: templates/layouts/dashboard_base.html:126
+#: templates/layouts/dashboard_base.html:209
+msgid "Logout"
+msgstr "लॉग आउट"
+
+#: templates/dashboard/audio.html:17
+msgid "Audio Steganography"
+msgstr "ऑडियो स्टेगनोग्राफी"
+
+#: templates/dashboard/audio.html:20
+msgid ""
+"Hide or reveal secret messages inside WAV audio files using LSB "
+"Steganography."
+msgstr ""
+
+#: templates/dashboard/audio.html:33 templates/dashboard/audio.html:81
+msgid "Encode Audio"
+msgstr "ऑडियो एन्कोड करें"
+
+#: templates/dashboard/audio.html:39
+msgid "Select Audio File"
+msgstr "ऑडियो फ़ाइल चुनें"
+
+#: templates/dashboard/audio.html:44 templates/dashboard/audio.html:103
+msgid "Choose WAV File"
+msgstr "WAV फ़ाइल चुनें"
+
+#: templates/dashboard/audio.html:48 templates/dashboard/image.html:59
+#: templates/dashboard/video.html:56
+msgid "Secret Message"
+msgstr "गुप्त संदेश"
+
+#: templates/dashboard/audio.html:61 templates/dashboard/image.html:72
+#: templates/dashboard/video.html:69
+msgid "Encryption Password (optional)"
+msgstr "एन्क्रिप्शन पासवर्ड (वैकल्पिक)"
+
+#: templates/dashboard/audio.html:77 templates/dashboard/image.html:88
+#: templates/dashboard/video.html:85
+msgid "Leave blank for no encryption"
+msgstr "एन्क्रिप्शन नहीं चाहिए तो खाली छोड़ें"
+
+#: templates/dashboard/audio.html:92 templates/dashboard/audio.html:128
+msgid "Decode Audio"
+msgstr "ऑडियो डिकोड करें"
+
+#: templates/dashboard/audio.html:98
+msgid "Select Encoded Audio"
+msgstr "एन्कोडेड ऑडियो चुनें"
+
+#: templates/dashboard/audio.html:108 templates/dashboard/image.html:129
+#: templates/dashboard/video.html:124
+msgid "Decryption Password (if encrypted)"
+msgstr "डिक्रिप्शन पासवर्ड (यदि एन्क्रिप्टेड हो)"
+
+#: templates/dashboard/audio.html:124 templates/dashboard/image.html:145
+#: templates/dashboard/video.html:140
+msgid "Only needed if the message is encrypted"
+msgstr "केवल तभी जरूरी है जब संदेश एन्क्रिप्टेड हो"
+
+#: templates/dashboard/audio.html:136 templates/dashboard/image.html:157
+#: templates/dashboard/video.html:152
+msgid "Decoded Secret Message"
+msgstr "डिकोड किया गया गुप्त संदेश"
+
+#: templates/dashboard/audio.html:141 templates/dashboard/image.html:166
+#: templates/dashboard/video.html:157
+msgid "Copy"
+msgstr "कॉपी"
+
+#: templates/dashboard/audio.html:144 templates/dashboard/image.html:169
+#: templates/dashboard/video.html:160
+msgid "Show / Hide"
+msgstr "दिखाएँ / छिपाएँ"
+
+#: templates/dashboard/audio.html:158 templates/dashboard/image.html:182
+#: templates/dashboard/video.html:174
+msgid "Supported Features"
+msgstr "समर्थित सुविधाएँ"
+
+#: templates/dashboard/audio.html:172 templates/dashboard/image.html:197
+#: templates/dashboard/video.html:189
+msgid "Tips"
+msgstr "सुझाव"
+
+#: templates/dashboard/dashboard.html:154 templates/dashboard/settings.html:103
+#: templates/layouts/dashboard_base.html:154
+msgid "Notifications"
+msgstr "सूचनाएँ"
+
+#: templates/dashboard/history.html:17
+msgid "Activity History"
+msgstr "गतिविधि इतिहास"
+
+#: templates/dashboard/history.html:20
+msgid "View all your previous steganography operations."
+msgstr "अपने सभी पिछले स्टेगनोग्राफी संचालन देखें।"
+
+#: templates/dashboard/history.html:34
+msgid "Search"
+msgstr "खोजें"
+
+#: templates/dashboard/history.html:42
+msgid "Clear History"
+msgstr "इतिहास साफ़ करें"
+
+#: templates/dashboard/history.html:52
+msgid "Recent Activities"
+msgstr "हाल की गतिविधियाँ"
+
+#: templates/dashboard/history.html:61
+msgid "Operation"
+msgstr "संचालन"
+
+#: templates/dashboard/history.html:118
+msgid "Start encoding or decoding to see activity here."
+msgstr "यहाँ गतिविधि देखने के लिए एन्कोडिंग या डिकोडिंग शुरू करें।"
+
+#: templates/dashboard/history.html:134
+msgid "Open Image Steganography."
+msgstr "छवि स्टेगनोग्राफी खोलें।"
+
+#: templates/dashboard/history.html:145
+msgid "Open Audio Steganography."
+msgstr "ऑडियो स्टेगनोग्राफी खोलें।"
+
+#: templates/dashboard/history.html:156
+msgid "Open Video Steganography."
+msgstr "वीडियो स्टेगनोग्राफी खोलें।"
+
+#: templates/dashboard/image.html:17
+msgid "Image Steganography"
+msgstr "छवि स्टेगनोग्राफी"
+
+#: templates/dashboard/image.html:20
+msgid ""
+"Hide and reveal secret messages inside images using\n"
+"            Least Significant Bit (LSB) Steganography."
+msgstr ""
+
+#: templates/dashboard/image.html:34 templates/dashboard/image.html:92
+msgid "Encode Image"
+msgstr "छवि एन्कोड करें"
+
+#: templates/dashboard/image.html:40
+msgid "Select Image"
+msgstr "छवि चुनें"
+
+#: templates/dashboard/image.html:45 templates/dashboard/image.html:114
+msgid "Choose Image"
+msgstr "छवि चुनें"
+
+#: templates/dashboard/image.html:46 templates/dashboard/image.html:115
+#: templates/dashboard/video.html:45 templates/dashboard/video.html:112
+msgid "or drag and drop here"
+msgstr "या यहाँ खींचकर छोड़ें"
+
+#: templates/dashboard/image.html:103 templates/dashboard/image.html:149
+msgid "Decode Image"
+msgstr "छवि डिकोड करें"
+
+#: templates/dashboard/image.html:109
+msgid "Select Encoded Image"
+msgstr "एन्कोडेड छवि चुनें"
+
+#: templates/dashboard/profile.html:17
+msgid "My Profile"
+msgstr "मेरी प्रोफ़ाइल"
+
+#: templates/dashboard/profile.html:20
+msgid "Manage your StegaVault account information."
+msgstr "अपनी StegaVault खाता जानकारी प्रबंधित करें।"
+
+#: templates/dashboard/profile.html:66
+msgid "Account Information"
+msgstr "खाता जानकारी"
+
+#: templates/dashboard/profile.html:72
+msgid "Full Name"
+msgstr "पूरा नाम"
+
+#: templates/dashboard/profile.html:93
+msgid "Save Changes"
+msgstr "परिवर्तन सहेजें"
+
+#: templates/dashboard/profile.html:102 templates/dashboard/profile.html:122
+msgid "Change Password"
+msgstr "पासवर्ड बदलें"
+
+#: templates/dashboard/profile.html:104
+msgid "Update your account password anytime."
+msgstr "अपना खाता पासवर्ड कभी भी बदलें।"
+
+#: templates/dashboard/profile.html:109
+msgid "Current Password"
+msgstr "वर्तमान पासवर्ड"
+
+#: templates/dashboard/profile.html:113
+msgid "New Password"
+msgstr "नया पासवर्ड"
+
+#: templates/dashboard/profile.html:117
+msgid "Confirm New Password"
+msgstr "नया पासवर्ड पुष्टि करें"
+
+#: templates/dashboard/settings.html:20
+msgid "Customize your StegaVault experience."
+msgstr "अपने StegaVault अनुभव को अनुकूलित करें।"
+
+#: templates/dashboard/settings.html:28
+msgid "General Settings"
+msgstr "सामान्य सेटिंग्स"
+
+#: templates/dashboard/settings.html:34
+msgid "Display Name"
+msgstr "प्रदर्शित नाम"
+
+#: templates/dashboard/settings.html:57
+msgid "Language"
+msgstr "भाषा"
+
+#: templates/dashboard/settings.html:68
+msgid "Save Settings"
+msgstr "सेटिंग्स सहेजें"
+
+#: templates/dashboard/settings.html:80
+msgid "Dark Mode"
+msgstr "डार्क मोड"
+
+#: templates/dashboard/settings.html:84 templates/dashboard/settings.html:107
+#: templates/dashboard/settings.html:222
+msgid "enabled"
+msgstr "सक्षम"
+
+#: templates/dashboard/settings.html:86 templates/dashboard/settings.html:109
+#: templates/dashboard/settings.html:223
+msgid "disabled"
+msgstr "अक्षम"
+
+#: templates/dashboard/settings.html:132
+msgid "System Information"
+msgstr "सिस्टम जानकारी"
+
+#: templates/dashboard/settings.html:138
+msgid "Version"
+msgstr "संस्करण"
+
+#: templates/dashboard/settings.html:140
+msgid "StegaVault 3.0"
+msgstr "StegaVault 3.0"
+
+#: templates/dashboard/settings.html:144
+msgid "Database"
+msgstr "डेटाबेस"
+
+#: templates/dashboard/settings.html:146
+msgid "SQLite"
+msgstr "SQLite"
+
+#: templates/dashboard/settings.html:150
+msgid "Framework"
+msgstr "फ्रेमवर्क"
+
+#: templates/dashboard/settings.html:152
+msgid "Flask"
+msgstr "Flask"
+
+#: templates/dashboard/settings.html:156
+msgid "Encryption"
+msgstr "एन्क्रिप्शन"
+
+#: templates/dashboard/settings.html:158
+msgid "LSB Steganography"
+msgstr "LSB स्टेगनोग्राफी"
+
+#: templates/dashboard/settings.html:167
+msgid "Danger Zone"
+msgstr "खतरनाक क्षेत्र"
+
+#: templates/dashboard/settings.html:169
+msgid "These actions are irreversible. Please proceed with caution."
+msgstr "ये क्रियाएँ अपरिवर्तनीय हैं। कृपया सावधानी से आगे बढ़ें।"
+
+#: templates/dashboard/settings.html:177
+msgid "Clear All Data"
+msgstr "सारा डेटा साफ़ करें"
+
+#: templates/dashboard/settings.html:195
+msgid "Delete Account"
+msgstr "खाता हटाएँ"
+
+#: templates/dashboard/video.html:17
+msgid "Video Steganography"
+msgstr "वीडियो स्टेगनोग्राफी"
+
+#: templates/dashboard/video.html:20
+msgid ""
+"Securely hide and extract secret messages inside video files using LSB "
+"Steganography."
+msgstr ""
+
+#: templates/dashboard/video.html:33 templates/dashboard/video.html:89
+msgid "Encode Video"
+msgstr "वीडियो एन्कोड करें"
+
+#: templates/dashboard/video.html:39
+msgid "Select Video File"
+msgstr "वीडियो फ़ाइल चुनें"
+
+#: templates/dashboard/video.html:44 templates/dashboard/video.html:111
+msgid "Choose Video File"
+msgstr "वीडियो फ़ाइल चुनें"
+
+#: templates/dashboard/video.html:100 templates/dashboard/video.html:144
+msgid "Decode Video"
+msgstr "वीडियो डिकोड करें"
+
+#: templates/dashboard/video.html:106
+msgid "Select Encoded Video"
+msgstr "एन्कोडेड वीडियो चुनें"
+
+#: templates/layouts/base.html:66
+msgid "© 2026 StegaVault 3.0 | Secure Steganography Platform"
+msgstr "© 2026 StegaVault 3.0 | सुरक्षित स्टेगनोग्राफी प्लेटफ़ॉर्म"
+
+#~ msgid "Images Encoded"
+#~ msgstr "एन्कोड की गई छवियाँ"
+
+#~ msgid "Images Decoded"
+#~ msgstr "डिकोड की गई छवियाँ"
+
+#~ msgid "Audio Files"
+#~ msgstr "ऑडियो फ़ाइलें"
+
+#~ msgid "Video Files"
+#~ msgstr "वीडियो फ़ाइलें"
+
+#~ msgid "Hide a secret message inside an image."
+#~ msgstr "किसी छवि के अंदर गुप्त संदेश छिपाएँ।"
+
+#~ msgid "Reveal hidden messages from encoded images."
+#~ msgstr "एन्कोडेड छवियों से छिपे संदेश प्रकट करें।"
+
+#~ msgid "View your recent encoding and decoding activity."
+#~ msgstr "अपनी हालिया एन्कोडिंग और डिकोडिंग गतिविधि देखें।"
+
+#~ msgid "View"
+#~ msgstr "देखें"
+
+#~ msgid "Your encoding and decoding history will appear here."
+#~ msgstr "आपका एन्कोडिंग और डिकोडिंग इतिहास यहाँ दिखाई देगा।"
+

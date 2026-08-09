@@ -1,0 +1,79 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Admin History | StegaVault 3.0{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="admin-page">
+
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-clock-rotate-left"></i>
+            System History
+        </h1>
+        <p>
+            View all user activities across the platform.
+        </p>
+    </div>
+
+    <section class="activity-card">
+        <div class="activity-header">
+            <h2>
+                <i class="fas fa-list"></i>
+                All Activities
+                <span class="badge-count">{{ history|length }}</span>
+            </h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User</th>
+                        <th>Module</th>
+                        <th>Action</th>
+                        <th>Filename</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if history %}
+                    {% for record in history %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ record.username }}</td>
+                        <td>{{ record.module }}</td>
+                        <td>
+                            {% if record.action == 'Encode' %}
+                                <span class="badge-encode"><i class="fas fa-lock"></i> Encode</span>
+                            {% else %}
+                                <span class="badge-decode"><i class="fas fa-unlock"></i> Decode</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ record.filename }}</td>
+                        <td>{{ record.created_at.strftime('%d %b %Y %I:%M %p') if record.created_at else 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>No history found.</p>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div style="margin-top:20px;">
+        <a href="{{ url_for('admin.admin_dashboard') }}" class="action-btn">
+            <i class="fas fa-arrow-left"></i> Back to Admin Dashboard
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

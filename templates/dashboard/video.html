@@ -1,0 +1,208 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Video Steganography | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/video.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="video-page">
+
+    <!-- ================= HEADER ================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-video"></i>
+            {{ _('Video Steganography') }}
+        </h1>
+        <p>
+            {{ _('Securely hide and extract secret messages inside video files using LSB Steganography.') }}
+        </p>
+    </div>
+
+    <!-- ================= MAIN GRID ================= -->
+    <div class="video-grid">
+
+        <!-- ========================================= -->
+        <!-- ENCODE CARD -->
+        <!-- ========================================= -->
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-lock"></i>
+                {{ _('Encode Video') }}
+            </h2>
+
+            <form id="encodeForm" action="{{ url_for('video.video_encode') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <p class="section-title">{{ _('Select Video File') }}</p>
+                <div class="upload-box" id="encodeUploadBox">
+                    <input type="file" id="encodeVideo" name="video" accept=".mp4,.avi,.mov,.mkv" style="display:none;" required>
+                    <label for="encodeVideo" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span class="upload-text">{{ _('Choose Video File') }}</span>
+                        <span class="upload-hint">{{ _('or drag and drop here') }}</span>
+                    </label>
+                    <div class="file-info" id="encodeFileInfo" style="display:none;">
+                        <i class="fas fa-file-video"></i>
+                        <span class="file-name"></span>
+                        <button type="button" class="remove-file" onclick="removeFile('encode')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <p class="section-title">{{ _('Secret Message') }}</p>
+                <textarea 
+                    id="messageBox" 
+                    name="message" 
+                    maxlength="500" 
+                    placeholder="Enter your secret message..." 
+                    required
+                ></textarea>
+                <div class="char-counter">
+                    <span id="charCount">0</span>/500 Characters
+                </div>
+
+
+                <p class="section-title">{{ _('Encryption Password (optional)') }}</p>
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="encodePassword"
+                        name="password"
+                        class="password-input"
+                        placeholder="{{ _('Password') }}"
+                        autocomplete="new-password"
+                    >
+                    <button type="button" class="password-toggle" data-target="encodePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p class="password-hint">
+                    <i class="fas fa-shield-halved"></i>
+                    {{ _('Leave blank for no encryption') }}
+                </p>
+                <button type="submit" class="primary-btn">
+                    <i class="fas fa-lock"></i>
+                    {{ _('Encode Video') }}
+                </button>
+            </form>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- DECODE CARD -->
+        <!-- ========================================= -->
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-unlock"></i>
+                {{ _('Decode Video') }}
+            </h2>
+
+            <form id="decodeForm" action="{{ url_for('video.video_decode') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <p class="section-title">{{ _('Select Encoded Video') }}</p>
+                <div class="upload-box" id="decodeUploadBox">
+                    <input type="file" id="decodeVideo" name="video" accept=".mp4,.avi,.mov,.mkv" style="display:none;" required>
+                    <label for="decodeVideo" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span class="upload-text">{{ _('Choose Video File') }}</span>
+                        <span class="upload-hint">{{ _('or drag and drop here') }}</span>
+                    </label>
+                    <div class="file-info" id="decodeFileInfo" style="display:none;">
+                        <i class="fas fa-file-video"></i>
+                        <span class="file-name"></span>
+                        <button type="button" class="remove-file" onclick="removeFile('decode')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <p class="section-title">{{ _('Decryption Password (if encrypted)') }}</p>
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="decodePassword"
+                        name="password"
+                        class="password-input"
+                        placeholder="{{ _('Password') }}"
+                        autocomplete="new-password"
+                    >
+                    <button type="button" class="password-toggle" data-target="decodePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p class="password-hint">
+                    <i class="fas fa-shield-halved"></i>
+                    {{ _('Only needed if the message is encrypted') }}
+                </p>
+                <button type="submit" class="primary-btn">
+                    <i class="fas fa-search"></i>
+                    {{ _('Decode Video') }}
+                </button>
+            </form>
+
+            <!-- ========== RESULT ========== -->
+            <div class="decoded-section">
+                <h3>
+                    <i class="fas fa-key"></i>
+                    {{ _('Decoded Secret Message') }}
+                </h3>
+                <textarea id="decodedMessage" readonly>{% if decoded_message %}{{ decoded_message }}{% else %}No secret message decoded yet...{% endif %}</textarea>
+                <div class="decoded-buttons">
+                    <button type="button" id="copyBtn" class="secondary-btn">
+                        <i class="fas fa-copy"></i> {{ _('Copy') }}
+                    </button>
+                    <button type="button" id="toggleBtn" class="secondary-btn">
+                        <i class="fas fa-eye"></i> {{ _('Show / Hide') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= BOTTOM GRID ================= -->
+    <div class="bottom-grid">
+
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-check-circle"></i>
+                {{ _('Supported Features') }}
+            </h2>
+            <ul class="feature-list">
+                <li>MP4 Video Files</li>
+                <li>AVI Video Files</li>
+                <li>MOV Video Files</li>
+                <li>MKV Video Files</li>
+                <li>LSB Video Encoding</li>
+                <li>Secure Message Hiding</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <h2>
+                <i class="fas fa-lightbulb"></i>
+                {{ _('Tips') }}
+            </h2>
+            <ul class="feature-list">
+                <li>Use high-quality videos.</li>
+                <li>Don't compress after encoding.</li>
+                <li>Keep messages short.</li>
+                <li>Store encoded videos safely.</li>
+                <li>Use uncompressed video formats.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/video.js') }}"></script>
+{% endblock %}

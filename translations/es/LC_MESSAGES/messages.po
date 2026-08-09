@@ -1,0 +1,737 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-07-31 07:04+0000\n"
+"PO-Revision-Date: 2026-07-30 19:37+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: templates/admin/admin.html:17 templates/dashboard/admin_dashboard.html:36
+msgid "Admin Dashboard"
+msgstr "Panel de administración"
+
+#: templates/admin/admin.html:20
+msgid "Manage users, security and system activity."
+msgstr "Administra usuarios, seguridad y actividad del sistema."
+
+#: templates/admin/admin.html:32
+msgid "Total Users"
+msgstr "Usuarios totales"
+
+#: templates/admin/admin.html:42
+msgid "Images Processed"
+msgstr "Imágenes procesadas"
+
+#: templates/admin/admin.html:52
+msgid "Total Operations"
+msgstr "Operaciones totales"
+
+#: templates/admin/admin.html:62
+msgid "Videos Processed"
+msgstr "Vídeos procesados"
+
+#: templates/admin/admin.html:73 templates/admin/users.html:17
+#: templates/dashboard/admin_dashboard.html:131
+msgid "Manage Users"
+msgstr "Gestionar usuarios"
+
+#: templates/admin/admin.html:74
+msgid "View and manage registered users."
+msgstr "Ver y gestionar los usuarios registrados."
+
+#: templates/admin/admin.html:76 templates/admin/admin.html:87
+#: templates/admin/admin.html:98 templates/dashboard/history.html:136
+#: templates/dashboard/history.html:147 templates/dashboard/history.html:158
+msgid "Open"
+msgstr "Abrir"
+
+#: templates/admin/admin.html:84 templates/admin/security.html:18
+#: templates/dashboard/admin_dashboard.html:143
+#: templates/dashboard/dashboard.html:58
+#: templates/layouts/dashboard_base.html:58
+msgid "Security"
+msgstr "Seguridad"
+
+#: templates/admin/admin.html:85
+msgid "Monitor system security settings."
+msgstr "Supervisa la configuración de seguridad del sistema."
+
+#: templates/admin/admin.html:95 templates/dashboard/admin_dashboard.html:155
+msgid "Reports"
+msgstr "Informes"
+
+#: templates/admin/admin.html:96
+msgid "Check system activity reports."
+msgstr "Consulta los informes de actividad del sistema."
+
+#: templates/admin/admin.html:108
+msgid "Recent Activity"
+msgstr "Actividad reciente"
+
+#: templates/admin/admin.html:136
+msgid "No Recent Activity"
+msgstr "Sin actividad reciente"
+
+#: templates/admin/admin.html:137
+msgid "System activity will appear here."
+msgstr "La actividad del sistema aparecerá aquí."
+
+#: templates/admin/history.html:12
+msgid "System History"
+msgstr "Historial del sistema"
+
+#: templates/admin/history.html:15
+msgid "View all user activities across the platform."
+msgstr "Consulta todas las actividades de los usuarios en la plataforma."
+
+#: templates/admin/history.html:33 templates/admin/security.html:93
+#: templates/admin/security.html:198 templates/admin/users.html:68
+msgid "User"
+msgstr "Usuario"
+
+#: templates/admin/history.html:34 templates/dashboard/history.html:62
+msgid "Module"
+msgstr "Módulo"
+
+#: templates/admin/history.html:35 templates/dashboard/history.html:65
+msgid "Action"
+msgstr "Acción"
+
+#: templates/admin/history.html:36 templates/dashboard/history.html:63
+msgid "Filename"
+msgstr "Nombre de archivo"
+
+#: templates/admin/history.html:37 templates/dashboard/history.html:64
+msgid "Date & Time"
+msgstr "Fecha y hora"
+
+#: templates/admin/history.html:49 templates/dashboard/history.html:76
+msgid "Encode"
+msgstr "Codificar"
+
+#: templates/admin/history.html:51 templates/dashboard/history.html:80
+msgid "Decode"
+msgstr "Decodificar"
+
+#: templates/admin/history.html:62 templates/dashboard/history.html:117
+msgid "No history found."
+msgstr "No se encontró historial."
+
+#: templates/admin/history.html:73 templates/admin/users.html:123
+msgid "Back to Admin Dashboard"
+msgstr "Volver al panel de administración"
+
+#: templates/admin/security.html:20
+msgid "Monitor login activity and control access to user accounts."
+msgstr "Supervise la actividad de inicio de sesión y controle el acceso a las cuentas."
+"Supervisa la actividad de inicio de sesión y controla el acceso a las "
+"cuentas."
+
+#: templates/admin/security.html:34
+msgid "Login Attempts"
+msgstr "Intentos de inicio de sesión"
+
+#: templates/admin/security.html:44
+msgid "Failed (last 24h)"
+msgstr "Fallidos (últimas 24 h)"
+
+#: templates/admin/security.html:54
+msgid "Locked Accounts"
+msgstr "Cuentas bloqueadas"
+
+#: templates/admin/security.html:70
+msgid "Last Failed Attempt"
+msgstr "Último intento fallido"
+
+#: templates/admin/security.html:84
+msgid "Account Control"
+msgstr "Control de cuentas"
+
+#: templates/admin/security.html:86
+msgid "Lock an account to block login, or set a new password."
+msgstr "Bloquee una cuenta para impedir el inicio de sesión o establezca una nueva contraseña."
+"Bloquea una cuenta para impedir el acceso o establece una nueva "
+"contraseña."
+
+#: templates/admin/security.html:94 templates/admin/security.html:197
+#: templates/admin/users.html:40 templates/dashboard/settings.html:45
+msgid "Email"
+msgstr "Correo"
+
+#: templates/admin/security.html:95 templates/admin/users.html:41
+#: templates/dashboard/profile.html:87
+msgid "Role"
+msgstr "Rol"
+
+#: templates/admin/security.html:96 templates/admin/users.html:42
+msgid "Status"
+msgstr "Estado"
+
+#: templates/admin/security.html:97
+msgid "Last Login"
+msgstr "Último acceso"
+
+#: templates/admin/security.html:98 templates/admin/users.html:44
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/admin/security.html:109 templates/admin/users.html:75
+msgid "Active"
+msgstr "Activo"
+
+#: templates/admin/security.html:111
+msgid "Locked"
+msgstr "Bloqueado"
+
+#: templates/admin/security.html:130
+msgid "Lock"
+msgstr "Bloquear"
+
+#: templates/admin/security.html:134
+msgid "Unlock"
+msgstr "Desbloquear"
+
+#: templates/admin/security.html:150
+msgid "Reset"
+msgstr "Restablecer"
+
+#: templates/admin/security.html:159 templates/admin/users.html:111
+msgid "No users found."
+msgstr "No se encontraron usuarios."
+
+#: templates/admin/security.html:167
+msgid ""
+"Leave the password box empty to generate a random one - it is shown once\n"
+"            in the confirmation message."
+msgstr ""
+
+#: templates/admin/security.html:181
+msgid "Login Activity"
+msgstr "Actividad de inicio de sesión"
+
+#: templates/admin/security.html:187
+msgid "Clear Log"
+msgstr "Borrar registro"
+
+#: templates/admin/security.html:196
+msgid "When"
+msgstr "Cuándo"
+
+#: templates/admin/security.html:199
+msgid "Result"
+msgstr "Resultado"
+
+#: templates/admin/security.html:200
+msgid "Reason"
+msgstr "Motivo"
+
+#: templates/admin/security.html:201
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#: templates/admin/security.html:216
+msgid "Success"
+msgstr "Correcto"
+
+#: templates/admin/security.html:218
+msgid "Blocked"
+msgstr "Bloqueado"
+
+#: templates/admin/security.html:220
+msgid "Failed"
+msgstr "Fallido"
+
+#: templates/admin/security.html:229
+msgid "No login attempts recorded yet."
+msgstr "Aún no hay intentos de inicio de sesión."
+
+#: templates/admin/users.html:20
+msgid "View and manage all registered users."
+msgstr "Consulta y gestiona todos los usuarios registrados."
+
+#: templates/admin/users.html:39 templates/auth/register.html:21
+#: templates/dashboard/profile.html:77
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: templates/admin/users.html:43
+msgid "Joined"
+msgstr "Registrado"
+
+#: templates/admin/users.html:64
+msgid "Admin"
+msgstr "Administrador"
+
+#: templates/admin/users.html:79
+msgid "Inactive"
+msgstr "Inactivo"
+
+#: templates/auth/login.html:12
+msgid "🔐 StegaVault 2.0"
+msgstr "🔐 StegaVault 2.0"
+
+#: templates/auth/login.html:13
+msgid "Secure Steganography Platform"
+msgstr "Plataforma de esteganografía segura"
+
+#: templates/auth/login.html:22 templates/auth/register.html:34
+#: templates/dashboard/profile.html:82
+msgid "Email Address"
+msgstr "Correo electrónico"
+
+#: templates/auth/login.html:41 templates/auth/register.html:47
+#: templates/dashboard/audio.html:68 templates/dashboard/audio.html:115
+#: templates/dashboard/image.html:79 templates/dashboard/image.html:136
+#: templates/dashboard/video.html:76 templates/dashboard/video.html:131
+msgid "Password"
+msgstr "Contraseña"
+
+#: templates/auth/login.html:78
+msgid "Remember Me"
+msgstr "Recuérdame"
+
+#: templates/auth/login.html:83
+msgid "Forgot Password?"
+msgstr "¿Olvidaste tu contraseña?"
+
+#: templates/auth/login.html:93 templates/auth/register.html:101
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: templates/auth/login.html:106 templates/auth/register.html:12
+#: templates/auth/register.html:93
+msgid "Create Account"
+msgstr "Crear cuenta"
+
+#: templates/auth/register.html:13
+msgid "Join StegaVault 3.0"
+msgstr "Únete a StegaVault 3.0"
+
+#: templates/auth/register.html:71
+msgid "Confirm Password"
+msgstr "Confirmar contraseña"
+
+#: templates/dashboard/admin_dashboard.html:23
+#: templates/dashboard/dashboard.html:40
+#: templates/layouts/dashboard_base.html:40
+msgid "StegaVault"
+msgstr "StegaVault"
+
+#: templates/dashboard/admin_dashboard.html:25
+#: templates/dashboard/dashboard.html:41
+#: templates/layouts/dashboard_base.html:41
+msgid "Secure Steganography"
+msgstr "Esteganografía segura"
+
+#: templates/dashboard/admin_dashboard.html:45
+#: templates/dashboard/dashboard.html:50
+#: templates/layouts/dashboard_base.html:50
+msgid "Dashboard"
+msgstr "Panel"
+
+#: templates/dashboard/admin_dashboard.html:57
+#: templates/dashboard/dashboard.html:66 templates/dashboard/history.html:133
+#: templates/layouts/dashboard_base.html:66
+msgid "Image"
+msgstr "Imagen"
+
+#: templates/dashboard/admin_dashboard.html:69
+#: templates/dashboard/dashboard.html:73 templates/dashboard/history.html:144
+#: templates/layouts/dashboard_base.html:73
+msgid "Audio"
+msgstr "Audio"
+
+#: templates/dashboard/admin_dashboard.html:81
+#: templates/dashboard/dashboard.html:80 templates/dashboard/history.html:155
+#: templates/layouts/dashboard_base.html:80
+msgid "Video"
+msgstr "Vídeo"
+
+#: templates/dashboard/admin_dashboard.html:93
+#: templates/dashboard/dashboard.html:87
+#: templates/layouts/dashboard_base.html:87
+msgid "History"
+msgstr "Historial"
+
+#: templates/dashboard/admin_dashboard.html:105
+#: templates/dashboard/dashboard.html:94 templates/dashboard/dashboard.html:202
+#: templates/layouts/dashboard_base.html:94
+#: templates/layouts/dashboard_base.html:202
+msgid "Profile"
+msgstr "Perfil"
+
+#: templates/dashboard/admin_dashboard.html:117
+#: templates/dashboard/dashboard.html:101
+#: templates/dashboard/dashboard.html:205 templates/dashboard/settings.html:17
+#: templates/layouts/dashboard_base.html:101
+#: templates/layouts/dashboard_base.html:205
+msgid "Settings"
+msgstr "Ajustes"
+
+#: templates/dashboard/admin_dashboard.html:199
+#: templates/dashboard/dashboard.html:126
+#: templates/dashboard/dashboard.html:209
+#: templates/layouts/dashboard_base.html:126
+#: templates/layouts/dashboard_base.html:209
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: templates/dashboard/audio.html:17
+msgid "Audio Steganography"
+msgstr "Esteganografía de audio"
+
+#: templates/dashboard/audio.html:20
+msgid ""
+"Hide or reveal secret messages inside WAV audio files using LSB "
+"Steganography."
+msgstr ""
+
+#: templates/dashboard/audio.html:33 templates/dashboard/audio.html:81
+msgid "Encode Audio"
+msgstr "Codificar audio"
+
+#: templates/dashboard/audio.html:39
+msgid "Select Audio File"
+msgstr "Seleccionar archivo de audio"
+
+#: templates/dashboard/audio.html:44 templates/dashboard/audio.html:103
+msgid "Choose WAV File"
+msgstr "Elegir archivo WAV"
+
+#: templates/dashboard/audio.html:48 templates/dashboard/image.html:59
+#: templates/dashboard/video.html:56
+msgid "Secret Message"
+msgstr "Mensaje secreto"
+
+#: templates/dashboard/audio.html:61 templates/dashboard/image.html:72
+#: templates/dashboard/video.html:69
+msgid "Encryption Password (optional)"
+msgstr "Contraseña de cifrado (opcional)"
+
+#: templates/dashboard/audio.html:77 templates/dashboard/image.html:88
+#: templates/dashboard/video.html:85
+msgid "Leave blank for no encryption"
+msgstr "Déjelo en blanco para no cifrar"
+
+#: templates/dashboard/audio.html:92 templates/dashboard/audio.html:128
+msgid "Decode Audio"
+msgstr "Decodificar audio"
+
+#: templates/dashboard/audio.html:98
+msgid "Select Encoded Audio"
+msgstr "Seleccionar audio codificado"
+
+#: templates/dashboard/audio.html:108 templates/dashboard/image.html:129
+#: templates/dashboard/video.html:124
+msgid "Decryption Password (if encrypted)"
+msgstr "Contraseña de descifrado (si está cifrado)"
+
+#: templates/dashboard/audio.html:124 templates/dashboard/image.html:145
+#: templates/dashboard/video.html:140
+msgid "Only needed if the message is encrypted"
+msgstr "Solo es necesaria si el mensaje está cifrado"
+
+#: templates/dashboard/audio.html:136 templates/dashboard/image.html:157
+#: templates/dashboard/video.html:152
+msgid "Decoded Secret Message"
+msgstr "Mensaje secreto decodificado"
+
+#: templates/dashboard/audio.html:141 templates/dashboard/image.html:166
+#: templates/dashboard/video.html:157
+msgid "Copy"
+msgstr "Copiar"
+
+#: templates/dashboard/audio.html:144 templates/dashboard/image.html:169
+#: templates/dashboard/video.html:160
+msgid "Show / Hide"
+msgstr "Mostrar / Ocultar"
+
+#: templates/dashboard/audio.html:158 templates/dashboard/image.html:182
+#: templates/dashboard/video.html:174
+msgid "Supported Features"
+msgstr "Funciones compatibles"
+
+#: templates/dashboard/audio.html:172 templates/dashboard/image.html:197
+#: templates/dashboard/video.html:189
+msgid "Tips"
+msgstr "Consejos"
+
+#: templates/dashboard/dashboard.html:154 templates/dashboard/settings.html:103
+#: templates/layouts/dashboard_base.html:154
+msgid "Notifications"
+msgstr "Notificaciones"
+
+#: templates/dashboard/history.html:17
+msgid "Activity History"
+msgstr "Historial de actividad"
+
+#: templates/dashboard/history.html:20
+msgid "View all your previous steganography operations."
+msgstr "Consulta todas tus operaciones de esteganografía anteriores."
+
+#: templates/dashboard/history.html:34
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/dashboard/history.html:42
+msgid "Clear History"
+msgstr "Borrar historial"
+
+#: templates/dashboard/history.html:52
+msgid "Recent Activities"
+msgstr "Actividades recientes"
+
+#: templates/dashboard/history.html:61
+msgid "Operation"
+msgstr "Operación"
+
+#: templates/dashboard/history.html:118
+msgid "Start encoding or decoding to see activity here."
+msgstr "Empieza a codificar o decodificar para ver actividad aquí."
+
+#: templates/dashboard/history.html:134
+msgid "Open Image Steganography."
+msgstr "Abrir esteganografía de imagen."
+
+#: templates/dashboard/history.html:145
+msgid "Open Audio Steganography."
+msgstr "Abrir esteganografía de audio."
+
+#: templates/dashboard/history.html:156
+msgid "Open Video Steganography."
+msgstr "Abrir esteganografía de vídeo."
+
+#: templates/dashboard/image.html:17
+msgid "Image Steganography"
+msgstr "Esteganografía de imagen"
+
+#: templates/dashboard/image.html:20
+msgid ""
+"Hide and reveal secret messages inside images using\n"
+"            Least Significant Bit (LSB) Steganography."
+msgstr ""
+
+#: templates/dashboard/image.html:34 templates/dashboard/image.html:92
+msgid "Encode Image"
+msgstr "Codificar imagen"
+
+#: templates/dashboard/image.html:40
+msgid "Select Image"
+msgstr "Seleccionar imagen"
+
+#: templates/dashboard/image.html:45 templates/dashboard/image.html:114
+msgid "Choose Image"
+msgstr "Elegir imagen"
+
+#: templates/dashboard/image.html:46 templates/dashboard/image.html:115
+#: templates/dashboard/video.html:45 templates/dashboard/video.html:112
+msgid "or drag and drop here"
+msgstr "o arrastra y suelta aquí"
+
+#: templates/dashboard/image.html:103 templates/dashboard/image.html:149
+msgid "Decode Image"
+msgstr "Decodificar imagen"
+
+#: templates/dashboard/image.html:109
+msgid "Select Encoded Image"
+msgstr "Seleccionar imagen codificada"
+
+#: templates/dashboard/profile.html:17
+msgid "My Profile"
+msgstr "Mi perfil"
+
+#: templates/dashboard/profile.html:20
+msgid "Manage your StegaVault account information."
+msgstr "Gestiona la información de tu cuenta de StegaVault."
+
+#: templates/dashboard/profile.html:66
+msgid "Account Information"
+msgstr "Información de la cuenta"
+
+#: templates/dashboard/profile.html:72
+msgid "Full Name"
+msgstr "Nombre completo"
+
+#: templates/dashboard/profile.html:93
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: templates/dashboard/profile.html:102 templates/dashboard/profile.html:122
+msgid "Change Password"
+msgstr "Cambiar contraseña"
+
+#: templates/dashboard/profile.html:104
+msgid "Update your account password anytime."
+msgstr "Actualiza la contraseña de tu cuenta en cualquier momento."
+
+#: templates/dashboard/profile.html:109
+msgid "Current Password"
+msgstr "Contraseña actual"
+
+#: templates/dashboard/profile.html:113
+msgid "New Password"
+msgstr "Nueva contraseña"
+
+#: templates/dashboard/profile.html:117
+msgid "Confirm New Password"
+msgstr "Confirmar nueva contraseña"
+
+#: templates/dashboard/settings.html:20
+msgid "Customize your StegaVault experience."
+msgstr "Personaliza tu experiencia en StegaVault."
+
+#: templates/dashboard/settings.html:28
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+#: templates/dashboard/settings.html:34
+msgid "Display Name"
+msgstr "Nombre visible"
+
+#: templates/dashboard/settings.html:57
+msgid "Language"
+msgstr "Idioma"
+
+#: templates/dashboard/settings.html:68
+msgid "Save Settings"
+msgstr "Guardar ajustes"
+
+#: templates/dashboard/settings.html:80
+msgid "Dark Mode"
+msgstr "Modo oscuro"
+
+#: templates/dashboard/settings.html:84 templates/dashboard/settings.html:107
+#: templates/dashboard/settings.html:222
+msgid "enabled"
+msgstr "activadas"
+
+#: templates/dashboard/settings.html:86 templates/dashboard/settings.html:109
+#: templates/dashboard/settings.html:223
+msgid "disabled"
+msgstr "desactivado"
+
+#: templates/dashboard/settings.html:132
+msgid "System Information"
+msgstr "Información del sistema"
+
+#: templates/dashboard/settings.html:138
+msgid "Version"
+msgstr "Versión"
+
+#: templates/dashboard/settings.html:140
+msgid "StegaVault 3.0"
+msgstr "StegaVault 3.0"
+
+#: templates/dashboard/settings.html:144
+msgid "Database"
+msgstr "Base de datos"
+
+#: templates/dashboard/settings.html:146
+msgid "SQLite"
+msgstr "SQLite"
+
+#: templates/dashboard/settings.html:150
+msgid "Framework"
+msgstr "Framework"
+
+#: templates/dashboard/settings.html:152
+msgid "Flask"
+msgstr "Flask"
+
+#: templates/dashboard/settings.html:156
+msgid "Encryption"
+msgstr "Cifrado"
+
+#: templates/dashboard/settings.html:158
+msgid "LSB Steganography"
+msgstr "Esteganografía LSB"
+
+#: templates/dashboard/settings.html:167
+msgid "Danger Zone"
+msgstr "Zona de peligro"
+
+#: templates/dashboard/settings.html:169
+msgid "These actions are irreversible. Please proceed with caution."
+msgstr "Estas acciones son irreversibles. Procede con precaución."
+
+#: templates/dashboard/settings.html:177
+msgid "Clear All Data"
+msgstr "Borrar todos los datos"
+
+#: templates/dashboard/settings.html:195
+msgid "Delete Account"
+msgstr "Eliminar cuenta"
+
+#: templates/dashboard/video.html:17
+msgid "Video Steganography"
+msgstr "Esteganografía de vídeo"
+
+#: templates/dashboard/video.html:20
+msgid ""
+"Securely hide and extract secret messages inside video files using LSB "
+"Steganography."
+msgstr ""
+
+#: templates/dashboard/video.html:33 templates/dashboard/video.html:89
+msgid "Encode Video"
+msgstr "Codificar vídeo"
+
+#: templates/dashboard/video.html:39
+msgid "Select Video File"
+msgstr "Seleccionar archivo de vídeo"
+
+#: templates/dashboard/video.html:44 templates/dashboard/video.html:111
+msgid "Choose Video File"
+msgstr "Elegir archivo de vídeo"
+
+#: templates/dashboard/video.html:100 templates/dashboard/video.html:144
+msgid "Decode Video"
+msgstr "Decodificar vídeo"
+
+#: templates/dashboard/video.html:106
+msgid "Select Encoded Video"
+msgstr "Seleccionar vídeo codificado"
+
+#: templates/layouts/base.html:66
+msgid "© 2026 StegaVault 3.0 | Secure Steganography Platform"
+msgstr "© 2026 StegaVault 3.0 | Plataforma de esteganografía segura"
+
+#~ msgid "Images Encoded"
+#~ msgstr "Imágenes codificadas"
+
+#~ msgid "Images Decoded"
+#~ msgstr "Imágenes decodificadas"
+
+#~ msgid "Audio Files"
+#~ msgstr "Archivos de audio"
+
+#~ msgid "Video Files"
+#~ msgstr "Archivos de vídeo"
+
+#~ msgid "Hide a secret message inside an image."
+#~ msgstr "Oculta un mensaje secreto dentro de una imagen."
+
+#~ msgid "Reveal hidden messages from encoded images."
+#~ msgstr "Revela mensajes ocultos en imágenes codificadas."
+
+#~ msgid "View your recent encoding and decoding activity."
+#~ msgstr "Consulta tu actividad reciente de codificación y decodificación."
+
+#~ msgid "View"
+#~ msgstr "Ver"
+
+#~ msgid "Your encoding and decoding history will appear here."
+#~ msgstr "Tu historial de codificación y decodificación aparecerá aquí."
+

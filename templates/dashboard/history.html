@@ -1,0 +1,329 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}History | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="history-page">
+
+    <!-- ================= HEADER ================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-clock-rotate-left"></i>
+            {{ _('Activity History') }}
+        </h1>
+        <p>
+            {{ _('View all your previous steganography operations.') }}
+        </p>
+    </div>
+
+    <!-- ================= SEARCH & CLEAR ================= -->
+    <div class="history-actions">
+        <form method="GET" action="{{ url_for('history.history_page') }}" class="search-box">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search filename..."
+                value="{{ search }}"
+            >
+            <button type="submit" class="action-btn">
+                <i class="fas fa-search"></i> {{ _('Search') }}
+            </button>
+        </form>
+
+        <form method="POST" action="{{ url_for('history.clear_history') }}" 
+              onsubmit="return confirm('Are you sure you want to clear all history?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="action-btn danger-btn">
+                <i class="fas fa-trash"></i> {{ _('Clear History') }}
+            </button>
+        </form>
+    </div>
+
+    <!-- ================= HISTORY TABLE ================= -->
+    <section class="activity-card">
+        <div class="activity-header">
+            <h2>
+                <i class="fas fa-list"></i>
+                {{ _('Recent Activities') }}
+            </h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ _('Operation') }}</th>
+                        <th>{{ _('Module') }}</th>
+                        <th>{{ _('Filename') }}</th>
+                        <th>{{ _('Date & Time') }}</th>
+                        <th class="text-center">{{ _('Action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if records %}
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            {% if record.action == "Encode" %}
+                                <span class="badge-encode">
+                                    <i class="fas fa-lock"></i> {{ _('Encode') }}
+                                </span>
+                            {% else %}
+                                <span class="badge-decode">
+                                    <i class="fas fa-unlock"></i> {{ _('Decode') }}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if record.module == "Image" %}
+                                <i class="fas fa-image" style="color:var(--primary);"></i>
+                            {% elif record.module == "Audio" %}
+                                <i class="fas fa-music" style="color:#a78bfa;"></i>
+                            {% elif record.module == "Video" %}
+                                <i class="fas fa-video" style="color:#f472b6;"></i>
+                            {% else %}
+                                <i class="fas fa-file"></i>
+                            {% endif %}
+                            {{ record.module }}
+                        </td>
+                        <td>
+                            <span title="{{ record.filename }}">
+                                {{ record.filename|truncate(25, true) }}
+                            </span>
+                        </td>
+                        <td>{{ record.created_at.strftime('%d %b %Y %I:%M %p') }}</td>
+                        <td class="text-center">
+                            <form method="POST" action="{{ url_for('history.delete_history', id=record.id) }}"
+                                  onsubmit="return confirm('Delete this record?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="delete-btn" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>{{ _('No history found.') }}</p>
+                            <small>{{ _('Start encoding or decoding to see activity here.') }}</small>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ================= QUICK ACTIONS ================= -->
+    <section class="quick-actions">
+        <div class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-image"></i>
+            </div>
+            <h3>{{ _('Image') }}</h3>
+            <p>{{ _('Open Image Steganography.') }}</p>
+            <a href="{{ url_for('image.image') }}" class="action-btn">
+                <i class="fas fa-arrow-right"></i> {{ _('Open') }}
+            </a>
+        </div>
+
+        <div class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-music"></i>
+            </div>
+            <h3>{{ _('Audio') }}</h3>
+            <p>{{ _('Open Audio Steganography.') }}</p>
+            <a href="{{ url_for('audio.audio') }}" class="action-btn">
+                <i class="fas fa-arrow-right"></i> {{ _('Open') }}
+            </a>
+        </div>
+
+        <div class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-video"></i>
+            </div>
+            <h3>{{ _('Video') }}</h3>
+            <p>{{ _('Open Video Steganography.') }}</p>
+            <a href="{{ url_for('video.video') }}" class="action-btn">
+                <i class="fas fa-arrow-right"></i> {{ _('Open') }}
+            </a>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<style>
+/* ========== HISTORY ACTIONS ========== */
+.history-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.search-box {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    min-width: 250px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+}
+
+.danger-btn {
+    background: var(--danger);
+}
+
+.danger-btn:hover {
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+}
+
+/* ========== TABLE ========== */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.history-table thead th {
+    padding: 15px 18px;
+    text-align: left;
+    background: var(--bg);
+    color: var(--text-light);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+}
+
+.history-table tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+.history-table tbody tr:hover {
+    background: var(--bg);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ========== BADGES ========== */
+.badge-encode {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-decode {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #dbeafe;
+    color: #1e40af;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ========== DELETE BUTTON ========== */
+.delete-btn {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.delete-btn:hover {
+    background: #fee2e2;
+    transform: scale(1.1);
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px !important;
+}
+
+.empty-state i {
+    font-size: 48px;
+    color: var(--text-light);
+    opacity: 0.3;
+}
+
+.empty-state p {
+    margin: 10px 0 5px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.empty-state small {
+    color: var(--text-light);
+}
+</style>
+{% endblock %}

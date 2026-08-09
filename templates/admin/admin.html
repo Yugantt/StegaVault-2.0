@@ -1,0 +1,164 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Admin Dashboard | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="admin-page">
+
+    <!-- ================= HEADER ================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fas fa-user-shield"></i>
+            {{ _('Admin Dashboard') }}
+        </h1>
+        <p>
+            {{ _('Manage users, security and system activity.') }}
+        </p>
+    </div>
+
+    <!-- ================= STATS ================= -->
+    <div class="stats">
+        <div class="stat-card blue">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h2>{{ users_count or 0 }}</h2>
+                <p>{{ _('Total Users') }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fas fa-image"></i>
+            </div>
+            <div class="stat-info">
+                <h2>{{ image_count or 0 }}</h2>
+                <p>{{ _('Images Processed') }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="stat-icon">
+                <i class="fas fa-clock-rotate-left"></i>
+            </div>
+            <div class="stat-info">
+                <h2>{{ history_count or 0 }}</h2>
+                <p>{{ _('Total Operations') }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card orange">
+            <div class="stat-icon">
+                <i class="fas fa-video"></i>
+            </div>
+            <div class="stat-info">
+                <h2>{{ video_count or 0 }}</h2>
+                <p>{{ _('Videos Processed') }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ADMIN QUICK ACTIONS ================= -->
+    <div class="quick-actions">
+        <div class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-users-gear"></i>
+            </div>
+            <h3>{{ _('Manage Users') }}</h3>
+            <p>{{ _('View and manage registered users.') }}</p>
+            <a href="{{ url_for('admin.admin_users') }}" class="action-btn">
+                <i class="fas fa-arrow-right"></i> {{ _('Open') }}
+            </a>
+        </div>
+
+        <div class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <h3>{{ _('Security') }}</h3>
+            <p>{{ _('Monitor system security settings.') }}</p>
+            <a href="{{ url_for('admin.admin_security') }}" class="action-btn">
+                <i class="fas fa-arrow-right"></i> {{ _('Open') }}
+            </a>
+        </div>
+
+        <div class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-chart-simple"></i>
+            </div>
+            <h3>{{ _('Reports') }}</h3>
+            <p>{{ _('Check system activity reports.') }}</p>
+            <a href="{{ url_for('admin.admin_history') }}" class="action-btn">
+                <i class="fas fa-arrow-right"></i> {{ _('Open') }}
+            </a>
+        </div>
+    </div>
+
+    <!-- ================= RECENT ACTIVITY ================= -->
+    <section class="activity-card">
+        <div class="activity-header">
+            <h2>
+                <i class="fas fa-clock-rotate-left"></i>
+                {{ _('Recent Activity') }}
+            </h2>
+        </div>
+
+        <div class="activity-list">
+            {% if activities %}
+                {% for activity in activities %}
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-{{ 'lock' if activity.action == 'Encode' else 'unlock' }}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <strong>
+                            {{ activity.username }} - {{ activity.module }} {{ activity.action }}
+                        </strong>
+                        <small>{{ activity.filename }}</small>
+                    </div>
+                    <small class="activity-time">
+                        {{ activity.created_at.strftime('%d %b %Y %I:%M %p') if activity.created_at else 'N/A' }}
+                    </small>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="activity-content">
+                        <strong>No Recent Activity</strong>
+                        <small>{{ _('System activity will appear here.') }}</small>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-hide flash messages after 5 seconds
+    setTimeout(function() {
+        const flashes = document.querySelectorAll('.flash');
+        flashes.forEach(function(flash) {
+            flash.style.transition = 'opacity 0.5s';
+            flash.style.opacity = '0';
+            setTimeout(function() {
+                flash.remove();
+            }, 500);
+        });
+    }, 5000);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StegaVault 3.0{% endblock %}</title>
+    <meta name="description" content="StegaVault 3.0 - Secure Steganography Platform">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <!-- Progress Overlay CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progress.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>{{ _('StegaVault') }}</h2>
+                    <p class="logo-sub">{{ _('Secure Steganography') }}</p>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+
+                <li class="{% if request.endpoint=='dashboard.dashboard' %}active{% endif %}">
+                    <a href="{{ url_for('dashboard.dashboard') }}">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>{{ _('Dashboard') }}</span>
+                    </a>
+                </li>
+
+                {% if session.get('role') in ['admin', 'Admin'] %}
+                <li class="{% if request.endpoint == 'admin.admin_security' %}active{% endif %}">
+                    <a href="{{ url_for('admin.admin_security') }}">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>{{ _('Security') }}</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="{% if request.endpoint and request.endpoint.startswith('image.') %}active{% endif %}">
+                    <a href="{{ url_for('image.image') }}">
+                        <i class="fa-solid fa-images"></i>
+                        <span>{{ _('Image') }}</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint and request.endpoint.startswith('audio.') %}active{% endif %}">
+                    <a href="{{ url_for('audio.audio') }}">
+                        <i class="fa-solid fa-music"></i>
+                        <span>{{ _('Audio') }}</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint and request.endpoint.startswith('video.') %}active{% endif %}">
+                    <a href="{{ url_for('video.video') }}">
+                        <i class="fa-solid fa-film"></i>
+                        <span>{{ _('Video') }}</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint and request.endpoint.startswith('history.') %}active{% endif %}">
+                    <a href="{{ url_for('history.history_page') }}">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>{{ _('History') }}</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint and request.endpoint.startswith('profile.') %}active{% endif %}">
+                    <a href="{{ url_for('profile.profile') }}">
+                        <i class="fa-solid fa-user"></i>
+                        <span>{{ _('Profile') }}</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint and request.endpoint.startswith('settings.') %}active{% endif %}">
+                    <a href="{{ url_for('settings.settings') }}">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>{{ _('Settings') }}</span>
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="sidebar-bottom">
+
+                <!-- Sidebar User Card -->
+                <div class="user-card">
+                    <div class="user-avatar">
+                        {% if session.get('profile_image') and session.get('profile_image') != 'default.png' %}
+                            <img src="{{ url_for('static', filename='profile/' + session.get('profile_image')) }}" alt="Profile">
+                        {% else %}
+                            <span>{{ session.get('username', 'U')[0]|upper }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="user-info">
+                        <strong>{{ session.get('username', 'User') }}</strong>
+                        <small>{{ session.get('role', 'User')|capitalize }}</small>
+                    </div>
+                </div>
+
+                <a href="{{ url_for('auth.logout') }}" class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>{{ _('Logout') }}</span>
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- ================= RIGHT SIDE ================= -->
+        <div class="dashboard-wrapper">
+
+            <!-- ================= TOPBAR ================= -->
+            <header class="dashboard-topbar">
+
+                <div class="topbar-left">
+                    <button class="menu-btn" id="menuBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="topbar-right">
+
+                    <!-- Notification -->
+                    <div class="notification-wrapper">
+                        <button class="icon-btn" id="notificationBtn">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="badge-dot"></span>
+                        </button>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <h4>{{ _('Notifications') }}</h4>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Welcome to StegaVault.
+                            </div>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-image"></i>
+                                Image module ready.
+                            </div>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-film"></i>
+                                Video module available.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode -->
+                    <button class="icon-btn" id="themeToggle">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- Profile Button (Top Right) -->
+                    <div class="profile-menu" id="profileMenu">
+                        <button class="profile-btn" id="profileBtn">
+                            <div class="profile-avatar">
+                                {% if session.get('profile_image') and session.get('profile_image') != 'default.png' %}
+                                    <img src="{{ url_for('static', filename='profile/' + session.get('profile_image')) }}" alt="Profile">
+                                {% else %}
+                                    <span>{{ session.get('username','U')[0]|upper }}</span>
+                                {% endif %}
+                            </div>
+                        </button>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="profile-header">
+                                <div class="profile-avatar">
+                                    {% if session.get('profile_image') and session.get('profile_image') != 'default.png' %}
+                                        <img src="{{ url_for('static', filename='profile/' + session.get('profile_image')) }}" alt="Profile">
+                                    {% else %}
+                                        <span>{{ session.get('username','U')[0]|upper }}</span>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <strong>{{ session.get('username','User') }}</strong><br>
+                                    <small>{{ session.get('role','User')|capitalize }}</small>
+                                </div>
+                            </div>
+                            <hr>
+                            <a href="{{ url_for('profile.profile') }}">
+                                <i class="fa-solid fa-user"></i> {{ _('Profile') }}
+                            </a>
+                            <a href="{{ url_for('settings.settings') }}">
+                                <i class="fa-solid fa-gear"></i> {{ _('Settings') }}
+                            </a>
+                            <hr>
+                            <a href="{{ url_for('auth.logout') }}">
+                                <i class="fa-solid fa-right-from-bracket"></i> {{ _('Logout') }}
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ================= PAGE CONTENT ================= -->
+            <main class="main-content">
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                {% block dashboard_content %}
+                {% endblock %}
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/stega-progress.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/crypto-ui.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

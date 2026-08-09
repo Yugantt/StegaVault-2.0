@@ -1,0 +1,240 @@
+{% extends "layouts/dashboard_base.html" %}
+
+{% block title %}Security | StegaVault 3.0{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="admin-page">
+
+    <!-- ========================================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================================= -->
+    <div class="page-header">
+        <h1>
+            <i class="fa-solid fa-shield-halved"></i>
+            {{ _('Security') }}
+        </h1>
+        <p>{{ _('Monitor login activity and control access to user accounts.') }}</p>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- STATS -->
+    <!-- ========================================= -->
+    <div class="stats">
+
+        <div class="stat-card blue">
+            <div class="stat-icon">
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </div>
+            <div class="stat-info">
+                <h2>{{ stats.total }}</h2>
+                <p>{{ _('Login Attempts') }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card orange">
+            <div class="stat-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="stat-info">
+                <h2>{{ stats.failed_24h }}</h2>
+                <p>{{ _('Failed (last 24h)') }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="stat-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="stat-info">
+                <h2>{{ stats.locked }}</h2>
+                <p>{{ _('Locked Accounts') }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div class="stat-info">
+                <h2>
+                    {% if stats.last_failed %}
+                        {{ stats.last_failed.strftime('%d %b') }}
+                    {% else %}
+                        --
+                    {% endif %}
+                </h2>
+                <p>{{ _('Last Failed Attempt') }}</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- ACCOUNT CONTROL -->
+    <!-- ========================================= -->
+    <div class="security-card">
+
+        <div class="card-head">
+            <h2>
+                <i class="fa-solid fa-user-shield"></i>
+                {{ _('Account Control') }}
+            </h2>
+            <span class="muted">{{ _('Lock an account to block login, or set a new password.') }}</span>
+        </div>
+
+        <div class="table-wrap">
+            <table class="security-table">
+                <thead>
+                    <tr>
+                        <th>{{ _('User') }}</th>
+                        <th>{{ _('Email') }}</th>
+                        <th>{{ _('Role') }}</th>
+                        <th>{{ _('Status') }}</th>
+                        <th>{{ _('Last Login') }}</th>
+                        <th>{{ _('Actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td><strong>{{ user.username }}</strong></td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role|capitalize }}</td>
+                        <td>
+                            {% if user.is_active %}
+                                <span class="pill active">{{ _('Active') }}</span>
+                            {% else %}
+                                <span class="pill locked">{{ _('Locked') }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="muted">
+                            {% if user.last_login %}
+                                {{ user.last_login.strftime('%d %b %Y, %H:%M') }}
+                            {% else %}
+                                Never
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="row-actions">
+
+                                {% if user.id != session.get('user_id') %}
+                                <form method="POST"
+                                      action="{{ url_for('admin.admin_toggle_lock', user_id=user.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    {% if user.is_active %}
+                                        <button type="submit" class="mini-btn danger">
+                                            <i class="fa-solid fa-lock"></i> {{ _('Lock') }}
+                                        </button>
+                                    {% else %}
+                                        <button type="submit" class="mini-btn safe">
+                                            <i class="fa-solid fa-lock-open"></i> {{ _('Unlock') }}
+                                        </button>
+                                    {% endif %}
+                                </form>
+                                {% endif %}
+
+                                <form method="POST"
+                                      action="{{ url_for('admin.admin_reset_password', user_id=user.id) }}"
+                                      class="row-actions">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <input type="text"
+                                           name="new_password"
+                                           class="mini-input"
+                                           placeholder="New password"
+                                           minlength="6">
+                                    <button type="submit" class="mini-btn">
+                                        <i class="fa-solid fa-key"></i> {{ _('Reset') }}
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="empty-row">{{ _('No users found.') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p class="muted" style="margin-top:14px;">
+            {{ _('Leave the password box empty to generate a random one - it is shown once
+            in the confirmation message.') }}
+        </p>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- LOGIN ACTIVITY -->
+    <!-- ========================================= -->
+    <div class="security-card">
+
+        <div class="card-head">
+            <h2>
+                <i class="fa-solid fa-list-check"></i>
+                {{ _('Login Activity') }}
+            </h2>
+            <form method="POST" action="{{ url_for('admin.admin_clear_login_logs') }}"
+                  onsubmit="return confirm('Delete all login records?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="mini-btn danger">
+                    <i class="fa-solid fa-trash"></i> {{ _('Clear Log') }}
+                </button>
+            </form>
+        </div>
+
+        <div class="table-wrap">
+            <table class="security-table">
+                <thead>
+                    <tr>
+                        <th>{{ _('When') }}</th>
+                        <th>{{ _('Email') }}</th>
+                        <th>{{ _('User') }}</th>
+                        <th>{{ _('Result') }}</th>
+                        <th>{{ _('Reason') }}</th>
+                        <th>{{ _('IP Address') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td class="muted">
+                            {% if log.created_at %}
+                                {{ log.created_at.strftime('%d %b %Y, %H:%M') }}
+                            {% endif %}
+                        </td>
+                        <td>{{ log.email }}</td>
+                        <td>{{ log.username or '-' }}</td>
+                        <td>
+                            {% if log.status == 'Success' %}
+                                <span class="pill success">{{ _('Success') }}</span>
+                            {% elif log.status == 'Blocked' %}
+                                <span class="pill blocked">{{ _('Blocked') }}</span>
+                            {% else %}
+                                <span class="pill failed">{{ _('Failed') }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="muted">{{ log.reason or '-' }}</td>
+                        <td class="muted">{{ log.ip_address or '-' }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="empty-row">
+                            {{ _('No login attempts recorded yet.') }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

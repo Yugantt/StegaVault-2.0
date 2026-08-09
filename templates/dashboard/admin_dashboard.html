@@ -1,0 +1,221 @@
+{% extends "layouts/base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🔐
+            </div>
+
+            <h2>{{ _('StegaVault') }}</h2>
+
+            <p>{{ _('Secure Steganography') }}</p>
+
+        </div>
+
+        <ul class="sidebar-menu">
+
+            {% if session.get("role")=="admin" %}
+
+                <li>
+                    <a href="{{ url_for('dashboard.admin_dashboard') }}">
+                        <i class="fas fa-chart-line"></i>
+                        {{ _('Admin Dashboard') }}
+                    </a>
+                </li>
+
+            {% else %}
+
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard') }}">
+                        <i class="fas fa-home"></i>
+                        {{ _('Dashboard') }}
+                    </a>
+                </li>
+
+            {% endif %}
+
+            <li>
+
+                <a href="{{ url_for('image.image') }}">
+
+                    <i class="fas fa-image"></i>
+
+                    {{ _('Image') }}
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('audio.audio') }}">
+
+                    <i class="fas fa-music"></i>
+
+                    {{ _('Audio') }}
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('video.video') }}">
+
+                    <i class="fas fa-video"></i>
+
+                    {{ _('Video') }}
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('history.history_page') }}">
+
+                    <i class="fas fa-history"></i>
+
+                    {{ _('History') }}
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('profile.profile') }}">
+
+                    <i class="fas fa-user"></i>
+
+                    {{ _('Profile') }}
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('settings.settings') }}">
+
+                    <i class="fas fa-cog"></i>
+
+                    {{ _('Settings') }}
+
+                </a>
+
+            </li>
+
+            {% if session.get("role")=="admin" %}
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fas fa-users"></i>
+
+                    {{ _('Manage Users') }}
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fas fa-shield-alt"></i>
+
+                    {{ _('Security') }}
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="#">
+
+                    <i class="fas fa-chart-bar"></i>
+
+                    {{ _('Reports') }}
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+        <div class="sidebar-bottom">
+
+            <div class="user-card">
+
+                <div class="avatar">
+
+                    {{ session.get("username")[0]|upper }}
+
+                </div>
+
+                <div>
+
+                    <strong>
+
+                        {{ session.get("username") }}
+
+                    </strong>
+
+                    <small>
+
+                        {{ session.get("role")|capitalize }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <a
+                href="{{ url_for('auth.logout') }}"
+                class="logout-btn">
+
+                <i class="fas fa-sign-out-alt"></i>
+
+                {{ _('Logout') }}
+
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- ========================= -->
+    <!-- PAGE CONTENT -->
+    <!-- ========================= -->
+
+    <div class="main-content">
+
+        {% block dashboard_content %}
+
+        {% endblock %}
+
+    </div>
+
+</div>
+
+{% endblock %}

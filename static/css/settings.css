@@ -1,0 +1,288 @@
+/*==================================================
+        STEGAVAULT 3.0 - SETTINGS.CSS
+==================================================*/
+
+.settings-page {
+    padding: 0 0 30px 0;
+    width: 100%;
+}
+
+/* ========== HEADER ========== */
+.page-header {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.page-header h1 i {
+    color: var(--primary);
+}
+
+.page-header p {
+    margin-top: 10px;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* ========== GLASS CARD ========== */
+.glass-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.glass-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.glass-card h2 i {
+    color: var(--primary);
+}
+
+.card-desc {
+    color: var(--text-light);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* ========== FORM ========== */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    transition: 0.3s;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-group .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    cursor: pointer;
+}
+
+/* ========== BUTTONS ========== */
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    font-family: inherit;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.35);
+}
+
+/* ========== SETTINGS GRID ========== */
+.settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* ========== SYSTEM INFO ========== */
+.system-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.info-label {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.info-label i {
+    margin-right: 8px;
+    color: var(--primary);
+}
+
+.info-value {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* ========== DANGER ZONE ========== */
+.danger-zone {
+    background: rgba(239, 68, 68, 0.05);
+    border: 2px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-top: 10px;
+}
+
+.danger-zone h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    color: var(--danger);
+    margin-bottom: 8px;
+}
+
+.danger-zone h2 i {
+    color: var(--danger);
+}
+
+.danger-desc {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.danger-actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.danger-btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+    font-family: inherit;
+}
+
+.danger-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(239, 68, 68, 0.35);
+}
+
+.danger-delete {
+    background: #dc2626;
+}
+
+.danger-delete:hover {
+    box-shadow: 0 15px 30px rgba(220, 38, 38, 0.4);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 992px) {
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .system-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .danger-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .danger-actions .form-group {
+        width: 100%;
+    }
+    
+    .danger-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 28px;
+    }
+    
+    .glass-card {
+        padding: 22px;
+    }
+    
+    .glass-card h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .page-header h1 {
+        font-size: 24px;
+    }
+}
