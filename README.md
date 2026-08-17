@@ -1,312 +1,691 @@
-🔐 StegaVault 3.0
+# 🔐 StegaVault 2.0
 
-Secure Multi-Media Steganography Platform
+### Secure Multi-Media Steganography & Encryption Platform
 
-StegaVault 3.0 is a web-based security application that combines LSB
-steganography with optional password-based encryption to protect
-sensitive information.
----------------------------------------------------------------------------------
-✨ Features
+> **StegaVault 2.0** is a secure web-based platform that hides secret messages inside **images, audio, and video files** using LSB steganography, with optional password-based encryption for an additional layer of security.
 
-🖼️ Image steganography using LSB
+---
 
-🎵 Audio steganography using WAV
+## 📌 Overview
 
-🎬 Video steganography using AVI + FFV1
+Steganography is the technique of hiding information inside an ordinary-looking file so that the existence of the secret message is not obvious.
 
-🔐 Fernet encryption with PBKDF2-derived keys
+StegaVault combines **steganography and cryptography**:
 
-👤 User registration, login and session management
+**Without password:**
 
-🧾 Encoding/decoding history
-
-🛡️ Admin dashboard and security monitoring
-
-🌙 Responsive UI and dark mode
-
-🌐 Multi-language support
-
-📈 Live progress for video processing
----------------------------------------------------------------------------------------
-🏗️ Architecture
-
-Browser
-   │
-   ▼
-Flask Web Application
-   │
-   ├── Authentication
-   ├── Image Module ── LSB
-   ├── Audio Module ── LSB
-   ├── Video Module ── Frame + LSB
-   ├── Encryption ─── Fernet + PBKDF2
-   └── Admin / History
-             │
-             ▼
-          SQLite
----------------------
-🔄 Encoding Workflow
----------------------
-Cover Media
-    ↓
+```text
 Secret Message
-    ↓
-Optional Password
-    ↓
-Encrypt Message
-    ↓
-Convert to Binary
-    ↓
+      ↓
+Binary Conversion
+      ↓
 LSB Embedding
-    ↓
-Stego-Media
-    ↓
-Save + Record History
+      ↓
+Stego Media
+```
 
----------------------
-🔓 Decoding Workflow
----------------------
+**With password:**
 
-Stego-Media
-    ↓
-Read LSB Bits
-    ↓
-Detect End Marker
-    ↓
-Rebuild Hidden Data
-    ↓
-Detect Encrypted Payload
-    ↓
-Decrypt with Password
-    ↓
-Original Message
+```text
+Secret Message
+      ↓
+PBKDF2 Key Derivation
+      ↓
+Fernet Encryption
+      ↓
+Binary Conversion
+      ↓
+LSB Embedding
+      ↓
+Stego Media
+```
 
+The platform supports image, audio, and video steganography together with user authentication, operation history, vault management, administrator security monitoring, dark mode, live progress tracking, and a multilingual interface.
 
-----------------------------
-🧩 Technology Stack
-----------------------------
-Category               Technology
+---
 
-Language               Python 3.8+
-Framework              Flask
-Database               SQLite
-ORM                    Flask-SQLAlchemy
-Image Processing       Pillow
-Numerical Processing   NumPy
-Video Processing       OpenCV
-Cryptography           Python Cryptography
-Front-End              HTML, CSS, JavaScript
-Templates              Jinja2
-Steganography          LSB
+## ✨ Key Features
 
+* 🔐 Password-based message encryption
+* 🖼️ Image steganography using LSB
+* 🎵 WAV audio steganography
+* 🎥 Video steganography using lossless FFV1
+* 👤 User registration and authentication
+* 🛡️ Role-based access control
+* 📜 Encode/decode operation history
+* 🔎 Login activity and security monitoring
+* 🔒 Admin account lock/unlock
+* 🔑 Admin password reset
+* 🌙 Dark mode
+* 📊 Live processing progress
+* 🌐 English, Hindi, Spanish and French interface
+* 🛡️ CSRF protection
+* 📁 Secure file-upload validation
+* 💾 SQLite database
+* 📈 Media capacity indicator
 
-==============================================================
-🔐 Security
+---
 
-StegaVault uses a layered approach:
+## 🧠 How Steganography Works
 
-Secret → Encryption → LSB Embedding → Stego-Media
+StegaVault uses **Least Significant Bit (LSB) steganography**.
 
-Security-related features include:
+For example, an RGB value can be changed from:
 
-Password hashing
+```text
+11001000 = 200
+```
 
-Fernet authenticated encryption
+to:
 
-PBKDF2 key derivation
+```text
+11001001 = 201
+```
 
-CSRF protection
+Only the last bit changes, producing a very small modification that is normally invisible to the human eye.
 
-Signed sessions
+The secret message is converted into binary and embedded into the least significant bits of the media data.
 
-SQLAlchemy parameterized queries
+An end marker is added so that the decoder knows where the hidden message ends:
 
-Jinja2 auto-escaping
+```text
+1111111111111110
+```
 
-Secure filename handling
+---
 
-File-extension validation
+## 🔒 Encryption
 
-Login activity logging
+Steganography hides the existence of information, while encryption protects the information itself.
 
-Admin account controls
+When a password is provided, StegaVault encrypts the message before embedding it.
 
-The encryption password is not stored as plaintext in the database or
-activity logs.
+### Encryption Pipeline
 
-📁 Supported Media
+```text
+Password
+   ↓
+PBKDF2-SHA256
+   ↓
+32-byte Key
+   ↓
+Fernet Encryption
+   ↓
+Encrypted Payload
+   ↓
+LSB Steganography
+```
 
-Image
+### Security Details
 
-Recommended: PNG
+* **Encryption:** Fernet
+* **Cipher:** AES-128-CBC
+* **Integrity:** HMAC-SHA256
+* **Key Derivation:** PBKDF2-HMAC-SHA256
+* **PBKDF2 Iterations:** 480,000
+* **Salt:** Random 16-byte salt
+* **Encryption Marker:** `SVENC1:`
 
-JPEG is not recommended for reliable LSB extraction because lossy
-compression can modify hidden bits.
+The password itself is never stored in the database, history, or logs.
 
-Audio
+> ⚠️ A lost encryption password cannot be recovered.
 
-Recommended: WAV
+---
 
-MP3 compression can corrupt hidden LSB data.
+## 🖼️ Image Steganography
 
-Video
+StegaVault modifies the least significant bits of image color values to store the secret message.
 
-Recommended: AVI + FFV1
+### Recommended Format
 
-FFV1 is used as a lossless codec so embedded information can survive
-video encoding.
+| Format | Support           | Reason                                    |
+| ------ | ----------------- | ----------------------------------------- |
+| PNG    | ✅ Recommended     | Lossless                                  |
+| JPEG   | ❌ Not recommended | Lossy compression can destroy hidden bits |
 
-🚀 Installation
+PNG should be used for reliable extraction.
 
-1. Clone
+---
 
+## 🎵 Audio Steganography
+
+For audio, the same LSB concept is applied to audio samples.
+
+### Recommended Format
+
+| Format | Support           | Reason                                    |
+| ------ | ----------------- | ----------------------------------------- |
+| WAV    | ✅ Recommended     | Lossless                                  |
+| MP3    | ❌ Not recommended | Lossy compression can destroy hidden bits |
+
+Small changes in audio sample values are generally inaudible.
+
+---
+
+## 🎥 Video Steganography
+
+Video is processed frame by frame because each frame can be treated similarly to an image.
+
+StegaVault uses:
+
+```text
+AVI Container
+      +
+FFV1 Lossless Codec
+```
+
+### Why FFV1?
+
+Lossy codecs such as `mp4v` can rewrite pixel values during compression and destroy the hidden LSB data.
+
+The project therefore uses **FFV1**, a lossless codec, to preserve the embedded information.
+
+> The resulting video files can be significantly larger because lossless storage is required.
+
+---
+
+## 🏗️ System Architecture
+
+```text
+┌──────────────────────────────────────┐
+│              Browser                 │
+│ HTML + CSS + JavaScript + Jinja2     │
+└──────────────────┬───────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────┐
+│          Flask Application            │
+│        Application Factory            │
+└──────────────────┬───────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────┐
+│             Routes Layer             │
+│ Auth │ Image │ Audio │ Video │ Admin │
+│ History │ Profile │ Settings │ etc.  │
+└───────────────┬───────────┬──────────┘
+                │           │
+                ▼           ▼
+       ┌──────────────┐ ┌──────────────┐
+       │ Utils Layer  │ │ Models Layer │
+       │              │ │              │
+       │ Image        │ │ Users        │
+       │ Audio        │ │ History      │
+       │ Video        │ │ Login Logs   │
+       │ Crypto       │ │              │
+       └──────────────┘ └──────┬───────┘
+                               │
+                               ▼
+                       ┌──────────────┐
+                       │    SQLite    │
+                       │  Database    │
+                       └──────────────┘
+```
+
+The application follows an MVC-style structure with Flask Blueprints separating different features.
+
+---
+
+## 🗄️ Database
+
+StegaVault uses SQLite with SQLAlchemy.
+
+### Main Tables
+
+#### `users`
+
+Stores:
+
+* User ID
+* Username
+* Email
+* Password hash
+* Profile information
+* Role
+* Account status
+* Registration date
+* Last login
+
+#### `history`
+
+Records:
+
+* User
+* Media type
+* Encode/decode action
+* Input/output filename
+* Message information
+* File size
+* Processing time
+* Operation status
+* Timestamp
+
+#### `login_logs`
+
+Records:
+
+* User/email
+* Login status
+* Failure reason
+* IP address
+* User agent
+* Timestamp
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology                 | Purpose                   |
+| -------------------------- | ------------------------- |
+| **Python 3.8+**            | Core programming language |
+| **Flask 3.1.3**            | Web framework             |
+| **Flask-SQLAlchemy 3.1.1** | Database ORM              |
+| **SQLAlchemy 2.0.51**      | Database abstraction      |
+| **SQLite**                 | Database                  |
+| **Pillow 12.3.0**          | Image processing          |
+| **NumPy 2.5.1**            | Fast numerical processing |
+| **OpenCV 5.0.0.93**        | Video processing          |
+| **Cryptography 49.0.0**    | Encryption                |
+| **Flask-Login 0.6.3**      | Authentication            |
+| **Flask-WTF 1.3.0**        | CSRF protection           |
+| **Flask-Babel 4.0.0**      | Internationalization      |
+| **Jinja2 3.1.6**           | HTML templating           |
+| **Flask-Migrate 4.1.0**    | Database migrations       |
+| **python-dotenv 1.2.2**    | Environment configuration |
+
+---
+
+## 📁 Project Structure
+
+```text
+StegaVault-2/
+│
+├── app.py
+├── config.py
+├── extensions.py
+├── models.py
+├── history.py
+├── login_log.py
+├── requirements.txt
+├── .env
+│
+├── routes/
+│   ├── auth.py
+│   ├── dashboard.py
+│   ├── image.py
+│   ├── audio.py
+│   ├── video.py
+│   ├── history.py
+│   ├── profile.py
+│   ├── settings.py
+│   ├── admin.py
+│   └── progress.py
+│
+├── utils/
+│   ├── image_steganography.py
+│   ├── audio_steganography.py
+│   ├── video_steganography.py
+│   ├── crypto.py
+│   └── progress.py
+│
+├── templates/
+├── static/
+├── translations/
+├── uploads/
+├── outputs/
+│
+└── instance/
+    └── stegavault.db
+```
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Yugantt/StegaVault-2.0.git
 cd StegaVault-2.0
+```
 
-2. Virtual environment
+### 2. Create a Virtual Environment
 
-Windows:
+**Windows:**
 
+```bash
 python -m venv venv
 venv\Scripts\activate
+```
 
-Linux/macOS:
+**Linux/macOS:**
 
+```bash
 python3 -m venv venv
 source venv/bin/activate
+```
 
-3. Install dependencies
+### 3. Install Dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
-4. Run
+### 4. Configure Environment Variables
 
+Create a `.env` file:
+
+```env
+SECRET_KEY=your-secret-key
+```
+
+> Never commit your real `SECRET_KEY` to GitHub.
+
+### 5. Run the Application
+
+```bash
 python app.py
+```
 
-Open the local Flask address shown in the terminal.
+Then open the local address displayed by Flask in your browser.
 
-📂 Project Modules
+---
 
-StegaVault
-├── Authentication
-├── Image Steganography
-├── Audio Steganography
-├── Video Steganography
-├── Encryption
-├── History
-├── Admin Dashboard
-└── SQLite Database
+## 🚀 Application Workflow
 
-📊 Results
+### Encoding
 
-Media   Format       Result
+```text
+Select Media
+     ↓
+Enter Secret Message
+     ↓
+Optional Password
+     ↓
+Encrypt Message
+     ↓
+Convert to Binary
+     ↓
+Check Media Capacity
+     ↓
+Embed Using LSB
+     ↓
+Generate Stego File
+     ↓
+Save / Download
+     ↓
+Record History
+```
 
-Image   PNG          ✅ Supported
-Image   JPEG         ⚠️ Lossy compression may corrupt data
-Audio   WAV          ✅ Supported
-Audio   MP3          ⚠️ Lossy compression may corrupt data
-Video   AVI + FFV1   ✅ Supported
+### Decoding
 
-Approximate project metrics:
+```text
+Upload Stego Media
+       ↓
+Extract LSB Data
+       ↓
+Find End Marker
+       ↓
+Check Encryption Marker
+       ↓
+Enter Password if Required
+       ↓
+Decrypt Message
+       ↓
+Display Secret Message
+       ↓
+Record Operation
+```
 
-Metric                Image PNG    Audio WAV   Video AVI/FFV1
+---
 
-Embedding Speed      ~0.8 MB/s   ~0.5 MB/s       ~0.3 MB/s
-Extraction Speed     ~0.6 MB/s   ~0.4 MB/s       ~0.2 MB/s
-Approx. Capacity          ~30%        ~20%            ~15%
+## 🛡️ Security Measures
 
-Actual performance depends on hardware and media characteristics.
+StegaVault includes multiple security protections:
 
-📸 Screenshots
+| Threat                     | Protection                                |
+| -------------------------- | ----------------------------------------- |
+| Database password exposure | Passwords stored as secure hashes         |
+| Message disclosure         | Fernet encryption                         |
+| Password attacks           | PBKDF2 with 480,000 iterations            |
+| CSRF attacks               | Flask-WTF CSRF tokens                     |
+| Session tampering          | Cryptographically signed session cookie   |
+| SQL injection              | SQLAlchemy parameterized queries          |
+| XSS                        | Jinja2 auto-escaping                      |
+| Malicious uploads          | Extension whitelist + `secure_filename()` |
+| Oversized uploads          | 500 MB maximum upload limit               |
+| Brute-force monitoring     | Login attempt logging + account locking   |
+| Unauthorized admin access  | Admin-only route protection               |
+| Ciphertext tampering       | Fernet HMAC verification                  |
+| Secret exposure in source  | `.env` configuration                      |
 
-Recommended repository structure:
+---
 
-docs/
-├── register.png
-├── dashboard.png
-├── image-steganography.png
-├── audio-steganography.png
-├── video-steganography.png
-├── admin-dashboard.png
-├── security.png
-└── history.png
+## 📊 Capacity
 
-Example:
+For images, capacity is approximately:
 
-![StegaVault Dashboard](docs/dashboard.png)
+```text
+Width × Height × 3 bits
+```
 
-🎯 Use Cases
+The application also provides a browser-side capacity indicator before encoding.
 
-Cybersecurity education
+For example, a `1920 × 1080` RGB image provides approximately:
 
-Steganography experiments
+```text
+1920 × 1080 × 3
+≈ 6.2 million bits
+≈ 777,000 characters
+```
 
-Secure communication research
+Actual usable capacity is lower when encryption overhead and the end marker are included.
 
-Data privacy demonstrations
+---
 
-Multimedia security research
+## 📈 Live Progress
 
-Digital watermarking research
+Large video files can take significant processing time.
 
-Forensic security experiments
+StegaVault provides real progress updates through a polling architecture:
 
-⚠️ Limitations
+```text
+Browser
+   │
+   │ POST /video/encode
+   ▼
+Flask Server
+   │
+   │ Encoding
+   ▼
+Progress Tracker
+   │
+   │ GET /progress/<job_id>
+   ▼
+Browser Progress Bar
+```
 
-Basic LSB can be vulnerable to statistical steganalysis.
+The browser polls the server approximately every 300 ms while processing is active.
 
-Lossy formats can damage hidden information.
+---
 
-Lossless video produces larger files.
+## 🌐 Multi-Language Support
 
-Development configuration should not be treated as a production
-deployment.
+StegaVault supports four interface languages:
 
-Production deployments should use HTTPS/TLS and appropriate server
-infrastructure.
+* 🇬🇧 English
+* 🇮🇳 Hindi
+* 🇪🇸 Spanish
+* 🇫🇷 French
 
-🔮 Future Scope
+Internationalization is implemented using **Flask-Babel**.
 
-DCT/DWT-based steganography
+---
 
-Improved resistance against steganalysis
+## 👨‍💼 Admin & Security Dashboard
 
-Batch processing
+Administrators can monitor application security and user activity.
 
-REST API
+### Admin capabilities
 
-Cloud storage integration
+* View registered users
+* View operation history
+* Monitor login attempts
+* Lock/unlock accounts
+* Force password resets
+* Promote users to administrator
+* Monitor failed login attempts
+* View security statistics
 
-Mobile application
+---
 
-Multi-factor authentication
+## ⚠️ Limitations
 
-Production-grade rate limiting
+The current version has some known limitations:
 
-Redis-backed progress tracking
+* PNG is required for reliable image steganography.
+* WAV is required for reliable audio steganography.
+* Video output uses AVI with FFV1.
+* Lossy compression can destroy hidden data.
+* LSB steganography can be detected through statistical steganalysis.
+* Login rate limiting is not currently implemented.
+* The development server uses HTTP rather than HTTPS.
+* Progress state is stored in memory.
+* The current application is not intended for production deployment.
+* Language preference is session-based.
 
-Gunicorn + Nginx deployment
+---
 
-👨‍💻 Project Information
+## 🔮 Future Scope
 
-Project: StegaVault 3.0
-Type: Web-Based Security / Steganography Application
-Technology: Python + Flask
-Database: SQLite
-Technique: LSB Steganography
-Encryption: Fernet + PBKDF2
+Possible future improvements include:
 
-📜 License
+* 🔒 HTTPS/TLS deployment
+* 🚦 Login rate limiting
+* 📦 Batch media processing
+* 🌐 REST API
+* 🧠 Advanced steganography techniques
+* 📊 Improved resistance against steganalysis
+* 💾 Persistent progress storage using Redis
+* 🌍 Permanent language preferences
+* 📱 Mobile application
+* 🚀 Production deployment using Gunicorn and Nginx
 
-This project is intended for educational, academic and research
-purposes. Add a project-specific LICENSE file before public
-distribution.
+---
 
-🙏 Acknowledgement
+## 🧪 Testing
 
-Developed as part of vocational/academic training to demonstrate
-practical concepts in web development, cryptography, steganography,
-database management, authentication, multimedia processing and
-cybersecurity.
+The project can be tested using:
 
-⭐ If you find the project useful, consider starring the repository.
+### Image
+
+```text
+PNG → Encode → Decode → Verify Message
+```
+
+### Audio
+
+```text
+WAV → Encode → Decode → Verify Message
+```
+
+### Video
+
+```text
+AVI + FFV1 → Encode → Decode → Verify Message
+```
+
+### Encryption
+
+```text
+Correct Password → Successful Decryption
+Wrong Password   → Decryption Failure
+Tampered Data    → Integrity Failure
+```
+
+---
+
+## 🔍 Important Technical Notes
+
+### Why not JPEG?
+
+JPEG uses lossy compression, which can modify pixel values and destroy the least significant bits containing the hidden message.
+
+### Why not MP3?
+
+MP3 compression can modify audio samples, which can destroy LSB-embedded information.
+
+### Why FFV1?
+
+FFV1 is lossless, allowing the embedded video data to survive encoding.
+
+### Why NumPy?
+
+Large images contain millions of pixel values. NumPy provides efficient array operations for processing these values.
+
+### Why SQLite?
+
+SQLite provides a simple, zero-configuration database suitable for the current project scale.
+
+---
+
+## 📚 Project Statistics
+
+According to the project guide:
+
+* **14,198+ lines of code**
+* **58 files**
+* **3 media types**
+* **4 interface languages**
+* **10 Flask Blueprints**
+* **SQLite database**
+* **LSB steganography**
+* **Fernet encryption**
+* **PBKDF2-SHA256 key derivation**
+
+---
+
+## 🎯 Use Cases
+
+StegaVault can demonstrate applications in:
+
+* 🔐 Secure communication
+* 🕵️ Privacy-oriented data hiding
+* 📁 Secure data storage
+* 🧪 Cybersecurity education
+* 🎓 Academic steganography research
+* 🔎 Digital security experiments
+* 🛡️ Information protection
+
+---
+
+## ⚠️ Security Disclaimer
+
+StegaVault is an **academic/project implementation** and is not currently production-ready.
+
+The project guide identifies missing production protections such as HTTPS, login rate limiting, persistent progress storage, and deployment behind a production server.
+
+Do not use the development server to handle real sensitive information.
+
+---
+
+## 👨‍💻 Project
+
+**Project:** StegaVault 3.0
+**Category:** Cybersecurity / Steganography
+**Platform:** Web Application
+**Language:** Python
+**Framework:** Flask
+**Database:** SQLite
+
+---
+
+## ⭐ Support
+
+If you find this project useful for learning about **steganography, encryption, Flask, or multimedia security**, consider giving the repository a ⭐.
+
+---
+
+### 🔐 StegaVault 3.0
+
+> **Hide the message. Protect the information. Secure the data.**
