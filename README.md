@@ -686,6 +686,6 @@ If you find this project useful for learning about **steganography, encryption, 
 
 ---
 
-### 🔐 StegaVault 3.0
+### 🔐 StegaVault 2.0
 
 > **Hide the message. Protect the information. Secure the data.**
