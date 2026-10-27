@@ -671,7 +671,7 @@ Do not use the development server to handle real sensitive information.
 
 ## 👨‍💻 Project
 
-**Project:** StegaVault 3.0
+**Project:** StegaVault 2.0
 **Category:** Cybersecurity / Steganography
 **Platform:** Web Application
 **Language:** Python
